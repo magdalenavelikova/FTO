@@ -1,0 +1,37 @@
+HELP.md
+rest-server/.gradle
+rest-server/build/
+rest-server/!gradle/wrapper/gradle-wrapper.jar
+rest-server/!**/src/main/**/build/
+rest-server/!**/src/test/**/build/
+
+### STS ###
+rest-server/.apt_generated
+rest-server/.classpath
+rest-server/.factorypath
+rest-server/.project
+rest-server/.settings
+rest-server/.springBeans
+rest-server/.sts4-cache
+rest-server/bin/
+rest-server/!**/src/main/**/bin/
+rest-server/!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+rest-server/.idea
+rest-server/*.iws
+rest-server/*.iml
+rest-server/*.ipr
+rest-server/out/
+rest-server/!**/src/main/**/out/
+rest-server/!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
