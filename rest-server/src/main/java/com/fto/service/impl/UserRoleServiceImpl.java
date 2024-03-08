@@ -21,17 +21,10 @@ public class UserRoleServiceImpl implements UserRoleService {
             admin.setRole(UsersRoleEnum.ADMIN);
             userRoleRepository.save(admin);
 
-            UserRoleEntity distributor =new UserRoleEntity();
-            distributor.setRole(UsersRoleEnum.DISTRIBUTOR);
-            userRoleRepository.save(distributor);
+            UserRoleEntity moderator =new UserRoleEntity();
+            moderator.setRole(UsersRoleEnum.FAMILY_MODERATOR);
+            userRoleRepository.save(moderator);
 
-            UserRoleEntity viewer =new UserRoleEntity();
-            viewer.setRole(UsersRoleEnum.VIEWER);
-            userRoleRepository.save(viewer);
-
-            UserRoleEntity creator =new UserRoleEntity();
-            creator.setRole(UsersRoleEnum.CREATOR);
-            userRoleRepository.save(creator);
         }
 
     }
