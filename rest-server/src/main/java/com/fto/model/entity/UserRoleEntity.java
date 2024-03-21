@@ -1,8 +1,7 @@
 package com.fto.model.entity;
 
-import com.fto.model.enums.UsersRoleEnum;
+import com.fto.model.enums.UserRoleEnum;
 import jakarta.persistence.*;
-import org.hibernate.annotations.IdGeneratorType;
 
 @Entity
 @Table(name = "user_roles")
@@ -12,7 +11,7 @@ public class UserRoleEntity {
     private Long id;
     @Column(name = "name")
     @Enumerated(EnumType.STRING)
-    private UsersRoleEnum role;
+    private UserRoleEnum role;
 
     public Long getId() {
         return id;
@@ -23,11 +22,11 @@ public class UserRoleEntity {
         return this;
     }
 
-    public UsersRoleEnum getRole() {
+    public UserRoleEnum getRole() {
         return role;
     }
 
-    public UserRoleEntity setRole(UsersRoleEnum role) {
+    public UserRoleEntity setRole(UserRoleEnum role) {
         this.role = role;
         return this;
     }
