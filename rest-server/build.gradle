@@ -34,6 +34,10 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'com.icegreen:greenmail:2.0.0'
+	testImplementation 'org.hsqldb:hsqldb'
+	testImplementation group: 'org.hamcrest', name: 'hamcrest', version: '2.1'
+	testImplementation "com.redis:testcontainers-redis:2.2.0"
 }
 
 tasks.named('test') {
