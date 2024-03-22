@@ -19,14 +19,12 @@ public class AppUserDetailsService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-
     @Override
     public UserDetails loadUserByUsername(String username) {
         return userRepository
                 .findByEmail(username)
                 .map(this::map)
                 .orElseThrow(() -> new UsernameNotFoundException("Invalid credential"));
-
     }
 
     private UserDetails map(UserEntity userEntity) {

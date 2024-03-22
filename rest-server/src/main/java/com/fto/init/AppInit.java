@@ -29,7 +29,6 @@ public class AppInit implements CommandLineRunner {
         userRoleService.init();
         ageCategoryService.init();
         userService.init();
-        familyRoleService.getAllFamilyRole();
-        userService.getUser("magdalenal.velikova@gmail.com");
+
     }
 }

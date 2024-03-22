@@ -15,7 +15,7 @@ import java.time.Duration;
 @Configuration
 public class RedisConfiguration {
     @Bean
-    public RedisCacheConfiguration cacheConfiguration(ObjectMapper objectMapper) {
+    public RedisCacheConfiguration cacheConfiguration(ObjectMapper objectMapper ) {
 
         objectMapper = objectMapper.copy();
         objectMapper.activateDefaultTyping(
