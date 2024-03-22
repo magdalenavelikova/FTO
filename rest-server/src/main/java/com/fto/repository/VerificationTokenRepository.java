@@ -1,11 +1,11 @@
 package com.fto.repository;
 
 
+import com.fto.model.entity.UserEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import com.fto.model.entity.VerificationToken;
-import com.fto.model.entity.UserEntity;
 
 import java.util.Optional;
 

@@ -14,6 +14,9 @@ public class AgeCategoryEntity {
     @Column(name = "name")
     private AgeCategoryEnum ageCategory;
 
+    public AgeCategoryEntity() {
+    }
+
     public Long getId() {
         return id;
     }

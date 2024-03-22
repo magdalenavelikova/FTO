@@ -15,6 +15,7 @@ public abstract class BaseEntity {
     private LocalDateTime created;
     private LocalDateTime modified;
 
+
     public Long getId() {
         return Id;
     }

@@ -9,4 +9,16 @@ import jakarta.persistence.Table;
 public class FamilyEntity extends BaseEntity{
     @Column(nullable = false)
     private String name;
+
+    public FamilyEntity() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public FamilyEntity setName(String name) {
+        this.name = name;
+        return this;
+    }
 }

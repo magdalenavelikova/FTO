@@ -24,10 +24,12 @@ public class AppInit implements CommandLineRunner {
 
 
     @Override
-    public void run(String... args)  {
+    public void run(String... args) {
         familyRoleService.init();
         userRoleService.init();
         ageCategoryService.init();
         userService.init();
+        familyRoleService.getAllFamilyRole();
+        userService.getUser("magdalenal.velikova@gmail.com");
     }
 }

@@ -13,6 +13,9 @@ public class FamilyRoleEntity {
     @Column(name = "name")
     private FamilyRoleEnum familyRole;
 
+    public FamilyRoleEntity() {
+    }
+
     public Long getId() {
         return id;
     }

@@ -10,11 +10,10 @@ spring:
     url: jdbc:mysql://${DB_HOST:localhost}:3306/ftoDb?useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=TRUE
     username: ${DB_USER:root}
     password: ${DB_PASSWORD}
-  batch:
-    jdbc:
-      initialize-schema: always
-    job:
-      enabled: false
+  data:
+    redis:
+      host: localhost
+      port: 6379
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
@@ -41,10 +40,10 @@ spring:
   #            client-id: ${FACEBOOK_ID}
   #            client-secret: ${FACEBOOK_SECRET}
 
-
   sql:
     init:
       mode: never
+
 
 #mail:
 #  host: mail.boxerclub-bg.org

@@ -22,6 +22,9 @@ public class FamilyMemberEntity extends BaseEntity{
     private AgeCategoryEntity ageCategory;
         private String pictureUrl;
 
+    public FamilyMemberEntity() {
+    }
+
     public UserEntity getUser() {
         return user;
     }

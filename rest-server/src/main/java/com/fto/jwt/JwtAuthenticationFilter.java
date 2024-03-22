@@ -1,9 +1,9 @@
 package com.fto.jwt;
 
 
+import com.fto.service.impl.AppUserDetailsService;
 import com.fto.model.AppUserDetails;
 import com.fto.service.JwtService;
-import com.fto.service.impl.AppUserDetailsService;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
