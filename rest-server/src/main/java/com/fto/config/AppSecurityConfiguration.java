@@ -2,8 +2,10 @@ package com.fto.config;
 
 import com.fto.jwt.JwtAuthenticationFilter;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -32,6 +34,8 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableWebSecurity
 @EnableWebMvc
 @EnableMethodSecurity
+@EnableAutoConfiguration
+@ComponentScan
 public class AppSecurityConfiguration implements WebMvcConfigurer {
 
     private final UserDetailsService userDetailsService;
