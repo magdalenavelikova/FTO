@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+
+.title {
+  font-family: "Abril Fatface", serif;
+  color: white;
+}
+
+.info {
+  font-weight: 100;
+  font-style: normal;
+  color: white;
+}

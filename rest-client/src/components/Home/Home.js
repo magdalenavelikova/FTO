@@ -12,13 +12,13 @@ export const Home = () => {
         minHeight: "100vh",
       }}>
       <Row>
-        <Col className='mt-5'>
+        <Col className='mt-5 pt-5'>
           <Row
-            className='mt-5'
+            className='mt-5 pt-5'
             style={{
               minHeight: "30vh",
             }}>
-            <h1 className='title p-5'>Family Task Organizer</h1>
+            <h1 className='title display-1 mt-5 p-5'>Family Task Organizer</h1>
           </Row>
           <Row
             className='ps-5'
@@ -26,8 +26,8 @@ export const Home = () => {
               minHeight: "30vh",
             }}>
             <h2 className='info'>
-              Let's get our time in order! <br /> Plan, manage and track all
-              your family's tasks in one flexible platform.
+              Let's get our time in order. <br /> <br /> Plan, manage and track
+              all your family's tasks in one flexible platform.
             </h2>
           </Row>
         </Col>
