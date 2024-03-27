@@ -1,7 +1,13 @@
 import { Col, Container, Row } from "react-bootstrap";
+import { AuthTab } from "../Tabs/AuthTab";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 
 export const Home = () => {
   const bgImage = require("../../assets/family.jpg");
+  const { activeUser, success } = useContext(AuthContext);
+  console.log(activeUser);
+  console.log(success);
   return (
     <Container
       fluid
@@ -12,7 +18,7 @@ export const Home = () => {
         minHeight: "100vh",
       }}>
       <Row>
-        <Col className='mt-5 pt-5'>
+        <Col className='mt-lg-5 pt-lg-5 mt-2'>
           <Row
             className='mt-5 pt-5'
             style={{
@@ -31,7 +37,9 @@ export const Home = () => {
             </h2>
           </Row>
         </Col>
-        <Col className='mt-5 '></Col>
+        <Col className='mt-5 pt-5'>
+          <AuthTab></AuthTab>
+        </Col>
       </Row>
     </Container>
   );

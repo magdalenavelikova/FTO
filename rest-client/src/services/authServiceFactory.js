@@ -11,7 +11,7 @@ export const authServiceFactory = (token) => {
 
   return {
     login: (loginData) => request.post(`${baseUrl}/login`, loginData),
-   /* register: (data) => request.post(`${baseUrl}/register`, data),
+    register: (data) => request.post(`${baseUrl}/register`, data),
     verify: (data) => request.get(`${baseUrl}/registerConfirm?token=${data}`),
     onMembershipRequest: (data) => request.post(`${baseUrl}/membership`, data),
     changePassword: (data) => request.patch(`${baseUrl}/change-password`, data),
@@ -23,6 +23,6 @@ export const authServiceFactory = (token) => {
     getAllRoles: () => request.get(`${baseUrl}/roles`),
     remove: (id) => request.remove(`${baseUrl}/${id}`),
     update: (id, data) => request.patch(`${baseUrl}/${id}`, data),
-    find: (id) => request.get(`${baseUrl}/${id}`),*/
+    find: (id) => request.get(`${baseUrl}/${id}`),
   };
 };

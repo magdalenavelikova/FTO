@@ -9,4 +9,6 @@ public interface UserService {
 
 
   AppUserDetails login(String username, String password);
+
+    UserDto getUser(Long id);
 }

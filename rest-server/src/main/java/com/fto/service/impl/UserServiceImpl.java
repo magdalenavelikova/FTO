@@ -1,13 +1,15 @@
 package com.fto.service.impl;
 
+import com.fto.exception.UserNotFoundException;
 import com.fto.model.AppUserDetails;
+import com.fto.model.dto.UserDto;
 import com.fto.model.entity.UserEntity;
+import com.fto.model.entity.UserRoleEntity;
 import com.fto.model.enums.UserRoleEnum;
 import com.fto.model.mapper.UserMapper;
 import com.fto.repository.UserRepository;
-import com.fto.service.UserService;
-import com.fto.model.entity.UserRoleEntity;
 import com.fto.repository.UserRoleRepository;
+import com.fto.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -50,6 +52,12 @@ public class UserServiceImpl implements UserService {
                 setAuthentication(auth);
         return (AppUserDetails) auth.getPrincipal();
 
+    }
+
+    @Override
+    public UserDto getUser(Long id) {
+        return userMapper.userEntityToUserDto(userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id)));
     }
 
     @Override

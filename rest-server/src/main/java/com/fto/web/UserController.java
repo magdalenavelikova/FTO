@@ -2,17 +2,16 @@ package com.fto.web;
 
 import com.fto.model.AppUserDetails;
 import com.fto.model.dto.AuthRequest;
+import com.fto.model.dto.UserDto;
 import com.fto.service.JwtService;
 import com.fto.service.UserService;
 import com.fto.service.impl.AppUserDetailsService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
@@ -42,6 +41,11 @@ public class UserController {
         return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
                 .build();
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDto> getUser(@PathVariable Long id, @AuthenticationPrincipal AppUserDetails user) {
+        return ResponseEntity.ok()
+                .body(userService.getUser(id));
     }
 
     private UserDetails isValid(AuthRequest request) {
