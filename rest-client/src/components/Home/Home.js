@@ -20,7 +20,7 @@ export const Home = () => {
       <Row>
         <Col className='mt-lg-5 pt-lg-5 mt-2'>
           <Row
-            className='mt-lg-5 pt-5'
+            className='mt-lg-5 pt-5 m-auto'
             style={{
               minHeight: "30vh",
             }}>
@@ -29,17 +29,16 @@ export const Home = () => {
             </h1>
           </Row>
           <Row
-            className='ps-5 '
             style={{
               minHeight: "30vh",
             }}>
-            <h2 className='info'>
+            <h2 className='info px-5'>
               Let's get our time in order. <br /> <br /> Plan, manage and track
               all your family's tasks in one flexible platform.
             </h2>
           </Row>
         </Col>
-        <Col className='mt-lg-5 pt-5'>
+        <Col className='mt-lg-5 pt-lg-5 pt-sm-3'>
           <AuthTab></AuthTab>
         </Col>
       </Row>
