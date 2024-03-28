@@ -6,3 +6,4 @@
 
 <img src="/github_images/home.png" alt="Project image" style="width: 700px"/>
 
+<img src="/github_images/home_mobile.png" alt="Project image" style="width: 350px"/>
