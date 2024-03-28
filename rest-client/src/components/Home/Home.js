@@ -20,14 +20,16 @@ export const Home = () => {
       <Row>
         <Col className='mt-lg-5 pt-lg-5 mt-2'>
           <Row
-            className='mt-5 pt-5'
+            className='mt-lg-5 pt-5'
             style={{
               minHeight: "30vh",
             }}>
-            <h1 className='title display-1 mt-5 p-5'>Family Task Organizer</h1>
+            <h1 className='title display-1 mt-lg-5 p-5 '>
+              Family Task Organizer
+            </h1>
           </Row>
           <Row
-            className='ps-5'
+            className='ps-5 '
             style={{
               minHeight: "30vh",
             }}>
@@ -37,7 +39,7 @@ export const Home = () => {
             </h2>
           </Row>
         </Col>
-        <Col className='mt-5 pt-5'>
+        <Col className='mt-lg-5 pt-5'>
           <AuthTab></AuthTab>
         </Col>
       </Row>

@@ -202,7 +202,7 @@ export const RegisterPage = () => {
           </Form.Group>
 
           <Button
-            className='col-md-4  m-auto mt-4 mb-3'
+            className='col-md-6  m-auto mt-4 mb-3'
             variant='secondary'
             type='submit'>
             {isLoading && (
