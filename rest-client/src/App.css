@@ -93,34 +93,3 @@
 .transparent-input .form-control {
   background-color: transparent !important;
 }
-/* .form-control-custom {
-  color: #77b890 !important;
-  width: 4rem !important;
-  box-shadow: 0 0 0 0 #77b890 !important;
-  border-color: #77b890 !important;
-  border-bottom: 2px solid #77b890 !important;
-  background-color: transparent !important;
-}
-
-.form-control-custom:focus {
-  color: #77b890 !important;
-  width: 4rem !important;
-  border-color: #77b890 !important;
-  border-bottom: 3px solid var(--secondary) !important;
-  outline: 0;
-  transition: all 0.3s ease-in;
-  box-shadow: 0 0 0 0 #77b890 !important;
-  background-color: transparent !important;
-}
-
-.form-control-custom:hover option,
-.form-control-custom:focus option {
-  text-decoration: none;
-  color: #b8777d !important;
-  background-color: transparent !important;
-  border-color: #77b890 !important;
-}
-/* .form-control-custom option::selection {
-  background-color: #77b890 !important;
-  color: #fff; 
-} */

@@ -9,8 +9,9 @@ export const Navigation = () => {
   const logo = require("../../assets/logo.png");
   return (
     <Navbar
-      className='p-3'
-      bg='transparent'
+      className='p-1 px-lg-4 px-sm-2'
+      /*    bg='transparent' */
+      style={{ backgroundColor: "rgba(255, 255, 255, 0.1)" }}
       variant='dark'
       fixed='top'
       collapseOnSelect
@@ -48,6 +49,7 @@ export const Navigation = () => {
             About Us
           </Nav.Link>
         </Nav>
+
         <LanguageSwitcher fluid />
       </Navbar.Collapse>
     </Navbar>

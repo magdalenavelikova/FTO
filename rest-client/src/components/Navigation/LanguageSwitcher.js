@@ -5,7 +5,7 @@ import Select from "react-select";
 
 export const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
-
+  const { t } = useTranslation();
   const handleLangChange = (selectedOption) => {
     const lang = selectedOption.value;
     localStorage.setItem("lang", lang);
@@ -15,31 +15,46 @@ export const LanguageSwitcher = () => {
     control: (provided, state) => ({
       ...provided,
       fontSize: "0.8rem",
-      width: state.isFocused ? "6rem" : "6rem",
-      boxShadow:
-        state.isFocused || state.isHovered
-          ? "0 0 0 0 #77b890"
-          : "0 0 0 0 #77b890", // Set box shadow
-      borderColor: state.isFocused ? "#77b890" : "#77b890", // Set border color
-      borderBottom: state.isFocused ? "2px solid #77b890" : "2px solid #77b890", // Set bottom border
+      width: "5rem",
+      boxShadow: "0 0 0 0 #77b890",
+      borderColor: "#77b890",
+      /*  borderBottom: "2px solid #77b890", */
+      color: "#77b890",
+      backgroundColor: "transparent",
+      "&:hover": {
+        boxShadow: "0 0 0 0 #77b890",
+        borderColor: "#77b890",
+      },
+    }),
+    singleValue: (provided, state) => ({
+      ...provided,
+      fontSize: "0.8rem",
+      color: "#77b890",
     }),
     menu: (provided, state) => ({
       ...provided,
       fontSize: "0.8rem",
-      width: state.isFocused ? "6rem" : "6rem", // Set width to 4rem
-      boxShadow: state.isFocused ? "0 0 0 0 #77b890" : "0 0 0 0 #77b890", // Set box shadow
-      borderColor: state.isFocused ? "#77b890" : "#77b890", // Set border color
-      borderBottom: state.isFocused ? "2px solid #77b890" : "2px solid #77b890", // Set bottom border
+      width: "5rem",
+
+      boxShadow: "0 0 0 0 #77b890",
+
+      border: "1px solid #77b890",
+      color: "#77b890",
+      backgroundColor: "transparent",
     }),
     option: (provided, state) => ({
       ...provided,
       fontSize: "0.8rem",
-      backgroundColor: state.isFocused ? "#77b890" : "transparent",
-      color: state.isFocused ? "#fff" : "#333", // Custom text color
+      backgroundColor: "transparent",
+      color: "#77b890",
       "&:hover": {
-        backgroundColor: "#77b890", // Hover color
-        color: "#fff", // Hover text color
+        backgroundColor: "white",
+        /*  borderBottom: state.isFocused ? "2px solid #77b890" : "2px solid white", */
       },
+    }),
+    placeholder: (provided, state) => ({
+      ...provided,
+      color: "#77b890",
     }),
   };
 
@@ -48,15 +63,19 @@ export const LanguageSwitcher = () => {
     { value: "bg", label: "BG" },
   ];
   return (
-    <Select
-      onChange={handleLangChange}
-      options={options}
-      styles={customStyles}
-      value={{
-        value: localStorage.getItem("lang"),
-        label: localStorage.getItem("lang"),
-      }}
-    />
+    <>
+      <span style={{ color: "#77b890" }}> {t("nav.Language")}</span>
+      <Select
+        className='mt-1'
+        onChange={handleLangChange}
+        options={options}
+        styles={customStyles}
+        value={{
+          value: localStorage.getItem("lang"),
+          label: localStorage.getItem("lang"),
+        }}
+      />
+    </>
     /*  <Form.Select
       className='form-control-custom'
       size='sm'
