@@ -14,6 +14,7 @@
 # misc
 .DS_Store
 rest-client/.env.local
+rest-client/.env
 rest-client/.env.development.local
 rest-client/.env.test.local
 rest-client/.env.production.local
@@ -26,6 +27,7 @@ rest-client/yarn-error.log*
 # dependencies
 rest-client/node_modules
 rest-client/.pnp
+
 rest-client.pnp.js
 
 # testing

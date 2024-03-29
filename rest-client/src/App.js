@@ -3,7 +3,8 @@ import "./App.css";
 import { Navigation } from "./components/Navigation/Navigation";
 import { Home } from "./components/Home/Home";
 import { AuthProvider } from "./contexts/AuthContext";
-import { Wrapper } from "./components/Wrapper/Wrapper";
+import { WrapperLogin } from "./components/Wrapper/WrapperLogin";
+import { Logout } from "./components/Logout/Logout";
 
 function App() {
   const lang = localStorage.getItem("lang");
@@ -13,7 +14,8 @@ function App() {
         <Navigation />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='users/login' element={<Wrapper />} />
+          <Route path='users/login' element={<WrapperLogin />} />
+          <Route path='users/logout' element={<Logout />} />
         </Routes>
       </AuthProvider>
     </>

@@ -11,6 +11,8 @@ export const authServiceFactory = (token) => {
 
   return {
     login: (loginData) => request.post(`${baseUrl}/login`, loginData),
+    oauthlogin: (loginData) =>
+      request.post(`${baseUrl}/oauth/login`, loginData),
     register: (data) => request.post(`${baseUrl}/register`, data),
     verify: (data) => request.get(`${baseUrl}/registerConfirm?token=${data}`),
     onMembershipRequest: (data) => request.post(`${baseUrl}/membership`, data),

@@ -1,16 +1,20 @@
 import { Button, Container, Form, Spinner, Nav } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useForm } from "../../hooks/useForm";
 import { useState, useEffect } from "react";
+import GoogleLogin from "../OauthLogin/GoogleLogin";
 
 export const LoginPage = ({ onSelectHandler }) => {
   const { t } = useTranslation();
-  const { onLoginSubmitHandler, errors, spinner } = useAuthContext();
+  const navigate = useNavigate();
+  const { onLoginSubmitHandler, onOauthLoginSubmitHandler, errors, spinner } =
+    useAuthContext();
   const [eye, setEye] = useState(true);
   const [password, setPassword] = useState("password");
   const [isLoading, setIsLoading] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
   const Eye = () => {
     // eslint-disable-next-line eqeqeq
     if (password == "password") {
@@ -21,7 +25,26 @@ export const LoginPage = ({ onSelectHandler }) => {
       setEye(true);
     }
   };
+  const onGoogleSignIn = async (res) => {
+    const { credential } = res;
 
+    const result = await onOauthLoginSubmitHandler(credential, setIsLogin);
+    setIsLogin(result);
+  };
+
+  /* const handleFacebookLogin = async () => {
+    try {
+      // Make a request to the backend server to initiate the Facebook OAuth2 flow
+      const response = await axios.get("/auth/facebook");
+      window.location.href = response.data.redirectUrl;
+    } catch (error) {
+      console.error("Error initiating Facebook login:", error);
+    }
+  }; */
+  useEffect(() => {
+    if (!isLogin) return;
+    navigate("/");
+  }, [isLogin]);
   const LoginFormKeys = {
     Username: "username",
     Password: "password",
@@ -101,9 +124,11 @@ export const LoginPage = ({ onSelectHandler }) => {
           {t("forms.Button.Login")}
         </Button>
       </Form>
-      <Container className='m-auto container-sm mb-3'>
+      <Container className='m-auto container-sm mb-3 pt-lg-2'>
+        <GoogleLogin onGoogleSignIn={onGoogleSignIn} text='Google' />
+        {/*  <button onClick={handleFacebookLogin}>Login with Facebook</button> */}
         <Link
-          className={"nav-link d-inline-block me-4"}
+          className={"nav-link d-inline-block me-4 mt-lg-4"}
           style={{ textDecoration: "none" }}
           onClick={() => onSelectHandler("register")}>
           {t("linkRegister")}

@@ -31,6 +31,7 @@ const request = async (method, token, url, data) => {
     method !== "GET" &&
     url !== `${authURL}/register` &&
     url !== `${authURL}/login` &&
+    url !== `${authURL}/oauth/login` &&
     url !== `${authURL}/forgotten-password` &&
     url !== `${authURL}/forgotten-password/new-password`
   ) {
@@ -52,13 +53,19 @@ const request = async (method, token, url, data) => {
       return Promise.all(["401", response.text()]);
     }
 
-    if (url !== `${authURL}/register` && url !== `${authURL}/login`) {
+    if (
+      url !== `${authURL}/register` &&
+      url !== `${authURL}/login` &&
+      url !== `${authURL}/oauth/login`
+    ) {
       return await response.json();
     }
 
     if (
       response.status === 200 &&
-      (url === `${authURL}/register` || url === `${authURL}/login`)
+      (url === `${authURL}/register` ||
+        url === `${authURL}/login` ||
+        url === `${authURL}/oauth/login`)
     ) {
       return Promise.all([
         response.json(),
@@ -70,7 +77,9 @@ const request = async (method, token, url, data) => {
       (response.status === 400 ||
         response.status === 401 ||
         response.status === 409) &&
-      (url === `${authURL}/register` || url === `${authURL}/login`)
+      (url === `${authURL}/register` ||
+        url === `${authURL}/login` ||
+        url === `${authURL}/oauth/login`)
     ) {
       return Promise.all([response.json(), {}]);
     } else {

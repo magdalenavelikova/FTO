@@ -7,7 +7,7 @@ import { jwtDecode as jwt_decode } from "jwt-decode";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useLocalStorage("auth", {});
+  /* const [auth, setAuth] = useLocalStorage("auth", {}); */
   const [jwt, setJwt] = useLocalStorage("jwt", {});
   const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState({});
@@ -21,7 +21,27 @@ export const AuthProvider = ({ children }) => {
   const authorities = decodeJwt.authorities;
   const isAuthenticated =
     decodeJwt.authorities && Object.keys(jwt).length !== 0;
+  /* 
+REMEMBER ME
 
+const [token, setToken] = useState(
+  sessionStorage.getItem("token") || localStorage.getItem("token")
+);
+
+const login = (token: string, rememberMe = false) => {
+  if (rememberMe) {
+    localStorage.setItem("token", token);
+  } else {
+    sessionStorage.setItem("token", token);
+  }
+  setToken(token);
+};
+
+const logout = () => {
+  localStorage.removeItem("token");
+  sessionStorage.removeItem("token");
+  setToken(null);
+}; */
   useEffect(() => {
     // eslint-disable-next-line no-lone-blocks
     {
@@ -52,7 +72,26 @@ export const AuthProvider = ({ children }) => {
       setErrors({ error: "Invalid credential" });
     }
   };
+  const onOauthLoginSubmitHandler = async (idToken) => {
+    try {
+      setErrors({});
+      setSpinner(true);
+      const result = await authService.oauthlogin({ idToken: idToken });
 
+      if (result[0] === "401") {
+        setErrors({ error: "Invalid credential" });
+        setSuccess({});
+        setSpinner(false);
+      } else {
+        setJwt(result[1]);
+        setActiveUser(result[0]);
+        setSpinner(false);
+        navigate("/");
+      }
+    } catch (error) {
+      setErrors({ error: "Invalid credential" });
+    }
+  };
   const onRegisterSubmitHandler = async (data) => {
     setErrors({});
     setSuccess({});
@@ -276,6 +315,7 @@ export const AuthProvider = ({ children }) => {
     onRegisterSubmitHandler,
     onRegisterVerifyHandler,
     onLoginSubmitHandler,
+    onOauthLoginSubmitHandler,
     onForgottenPasswordSubmitHandler,
     onForgottenPasswordNewPasswordSubmitHandler,
     onChangePasswordSubmitHandler,

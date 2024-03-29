@@ -12,10 +12,12 @@ public class UserEntity extends BaseEntity {
 
     @Column(nullable = false, unique = true)
     private String email;
-    @Column(nullable = false)
+
     private String password;
     @Column(name = "name", nullable = false)
     private String name;
+    @Column(name = "picture_url")
+    private String pictureUrl;
     @Column(columnDefinition = "boolean default false")
     private boolean enabled;
     @OneToMany()
@@ -24,6 +26,12 @@ public class UserEntity extends BaseEntity {
     private List<UserRoleEntity> roles = new ArrayList<>();
 
     public UserEntity() {
+    }
+
+    public UserEntity(String email, String name, String pictureUrl) {
+        this.email = email;
+        this.name = name;
+        this.pictureUrl = pictureUrl;
     }
 
     public String getEmail() {
@@ -50,6 +58,15 @@ public class UserEntity extends BaseEntity {
 
     public UserEntity setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public UserEntity setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
         return this;
     }
 

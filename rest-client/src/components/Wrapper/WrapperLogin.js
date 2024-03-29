@@ -1,7 +1,7 @@
 import { Container } from "react-bootstrap";
 import { AuthTab } from "../Tabs/AuthTab";
 
-export const Wrapper = () => {
+export const WrapperLogin = () => {
   const bgImage = require("../../assets/bg_image.jpg");
   return (
     <Container

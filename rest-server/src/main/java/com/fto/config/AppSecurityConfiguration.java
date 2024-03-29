@@ -58,10 +58,12 @@ public class AppSecurityConfiguration implements WebMvcConfigurer {
                 .authorizeHttpRequests(
                         authorizeRequests ->
                                 authorizeRequests
+
                                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                                        .requestMatchers("/", "/users/login", "/users/register").permitAll()
+                                        .requestMatchers("/", "/users/login", "/users/oauth/login","/users/register").permitAll()
                                         .anyRequest().authenticated()
                 );
+
         return httpSecurity.build();
     }
 
