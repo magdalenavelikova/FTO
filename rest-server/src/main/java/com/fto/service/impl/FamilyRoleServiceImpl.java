@@ -18,6 +18,8 @@ public class FamilyRoleServiceImpl implements FamilyRoleService {
 
     public FamilyRoleServiceImpl(FamilyRoleRepository familyRoleRepository, FamilyRoleMapper familyRoleMapper) {
         this.familyRoleRepository = familyRoleRepository;
+
+
         this.familyRoleMapper = familyRoleMapper;
     }
 
@@ -27,7 +29,7 @@ public class FamilyRoleServiceImpl implements FamilyRoleService {
     public List<FamilyRoleDto> getAllFamilyRole() {
         return familyRoleRepository.findAll()
                 .stream()
-                .map(familyRoleMapper::toFamilyRoleDto)
+                .map(familyRoleMapper::familyRoleEntityToFamilyRoleDto)
                 .toList();
     }
 

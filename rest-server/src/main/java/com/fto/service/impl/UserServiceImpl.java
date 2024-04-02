@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
     @Value("${app.admin.password}")
     public String adminPass;
-//    @Value("${app.google.client-id}")
+    //    @Value("${app.google.client-id}")
 //    public String clientId;
 //    @Value("${spring.security.oauth2.client.registration.google.client-secret}")
 //    public String clientSecret;
@@ -108,8 +108,9 @@ public class UserServiceImpl implements UserService {
         userEntity.setCreated(LocalDateTime.now());
         Optional<UserRoleEntity> moderator = userRoleRepository.findUserRoleEntitiesByRole(UserRoleEnum.FAMILY_MODERATOR);
         moderator.ifPresent(userEntity::addRole);
-        return   userMapper.userEntityToUserDto(userRepository.save(userEntity));
-
+        userEntity.setCreated(LocalDateTime.now());
+        userEntity.setEnabled(true);
+        return userMapper.userEntityToUserDto(userRepository.save(userEntity));
 
 
     }
@@ -173,6 +174,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(existingUser);
         return existingUser;
     }
+
     private AppUserDetails login(String userName) {
         UserDetails userDetails =
                 userDetailsService.loadUserByUsername(userName);

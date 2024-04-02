@@ -1,16 +1,16 @@
 package com.fto.model.dto;
 
-public class AgeDto {
+public class AgeCategoryDto {
     private String ageCategory;
 
-    public AgeDto() {
+    public AgeCategoryDto() {
     }
 
     public String getAgeCategory() {
         return ageCategory;
     }
 
-    public AgeDto setAgeCategory(String ageCategory) {
+    public AgeCategoryDto setAgeCategory(String ageCategory) {
         this.ageCategory = ageCategory;
         return this;
     }

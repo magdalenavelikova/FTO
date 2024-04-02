@@ -52,6 +52,16 @@ const logout = () => {
     }
   }, [decodeJwt.jti]);
 
+  /* useEffect(() => {
+    console.log(activeUser);
+    if (!activeUser.hasOwnProperty("name")) {
+      setSuccess({});
+      setErrors({});
+      setActiveUser({});
+      setJwt({});
+    }
+  }, []); */
+
   const onLoginSubmitHandler = async (data) => {
     try {
       setErrors({});

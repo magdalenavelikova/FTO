@@ -1,9 +1,5 @@
 package com.fto.model.dto;
 
-import com.fto.model.entity.AgeCategoryEntity;
-import com.fto.model.entity.FamilyRoleEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
@@ -16,9 +12,9 @@ public class FamilyMemberDto {
     private String pinCode;
 
     @NotEmpty
-    private String familyRole;
+    private FamilyRoleDto familyRole;
     @NotEmpty
-    private String ageCategory;
+    private AgeCategoryDto ageCategory;
     private String pictureUrl;
 
     public FamilyMemberDto() {
@@ -42,20 +38,20 @@ public class FamilyMemberDto {
         return this;
     }
 
-    public String getFamilyRole() {
+    public FamilyRoleDto getFamilyRole() {
         return familyRole;
     }
 
-    public FamilyMemberDto setFamilyRole(String familyRole) {
+    public FamilyMemberDto setFamilyRole(FamilyRoleDto familyRole) {
         this.familyRole = familyRole;
         return this;
     }
 
-    public String getAgeCategory() {
+    public AgeCategoryDto getAgeCategory() {
         return ageCategory;
     }
 
-    public FamilyMemberDto setAgeCategory(String ageCategory) {
+    public FamilyMemberDto setAgeCategory(AgeCategoryDto ageCategory) {
         this.ageCategory = ageCategory;
         return this;
     }

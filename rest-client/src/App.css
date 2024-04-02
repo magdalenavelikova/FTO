@@ -82,7 +82,16 @@
   box-shadow: none;
   border: none;
 }
-
+.dropdown-item {
+  color: #77b890 !important;
+}
+.dropdown-menu.show {
+  width: 20%;
+  overflow-wrap: break-word !important;
+  word-break: break-all;
+  background-color: transparent;
+  border: 0;
+}
 .nav-link.active {
   color: #77b890 !important;
 }
@@ -90,6 +99,7 @@
 .nav-link {
   color: #77b890 !important;
 }
+
 .transparent-input .form-control {
   background-color: transparent !important;
 }

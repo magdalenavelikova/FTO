@@ -8,11 +8,11 @@ import java.util.List;
 @Entity
 @Table(name = "families")
 public class FamilyEntity extends BaseEntity {
-    @OneToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private UserEntity user;
     @Column(nullable = false)
     private String name;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<FamilyMemberEntity> members = new ArrayList<>();
 
     public FamilyEntity() {
@@ -25,6 +25,15 @@ public class FamilyEntity extends BaseEntity {
 
     public FamilyEntity setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public FamilyEntity setUser(UserEntity user) {
+        this.user = user;
         return this;
     }
 

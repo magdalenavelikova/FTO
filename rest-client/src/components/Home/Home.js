@@ -5,9 +5,8 @@ import { AuthContext } from "../../contexts/AuthContext";
 
 export const Home = () => {
   const bgImage = require("../../assets/family.jpg");
-  const { activeUser, success } = useContext(AuthContext);
-  console.log(activeUser);
-  console.log(success);
+  const { isAuthenticated, activeUser } = useContext(AuthContext);
+
   return (
     <Container
       fluid
@@ -24,7 +23,7 @@ export const Home = () => {
             style={{
               minHeight: "30vh",
             }}>
-            <h1 className='title display-1 mt-lg-5 p-5 '>
+            <h1 className='title display-1 mt-lg-5 m-auto pt-5 pb-5'>
               Family Task Organizer
             </h1>
           </Row>
@@ -38,9 +37,13 @@ export const Home = () => {
             </h2>
           </Row>
         </Col>
-        <Col className='mt-lg-5 mt-md-5 pt-lg-5  pt-md-5 pt-sm-3'>
-          <AuthTab></AuthTab>
-        </Col>
+
+        {(!isAuthenticated || activeUser.name === "") && (
+          <Col className='mt-lg-5 mt-md-5 pt-lg-5  pt-md-5 pt-sm-3'>
+            <AuthTab></AuthTab>
+          </Col>
+        )}
+        {isAuthenticated && <Col></Col>}
       </Row>
     </Container>
   );

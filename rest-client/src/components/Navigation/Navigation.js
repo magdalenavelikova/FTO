@@ -4,13 +4,15 @@ import Navbar from "react-bootstrap/Navbar";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 export const Navigation = () => {
   const { t } = useTranslation();
   const logo = require("../../assets/logo.png");
+  const { isAuthenticated, activeUser } = useContext(AuthContext);
   return (
     <Navbar
       className='p-1 px-lg-4 px-sm-2'
-      /*    bg='transparent' */
       style={{ backgroundColor: "rgba(255, 255, 255, 0.1)" }}
       variant='dark'
       fixed='top'
@@ -33,21 +35,35 @@ export const Navigation = () => {
       <Navbar.Toggle aria-controls='navbarScroll' />
       <Navbar.Collapse id='navbarScroll'>
         <Nav className='mr-auto' navbarScroll>
-          <Nav.Link eventKey='1' as={Link} className='me-2' to={"/users/login"}>
-            {t("nav.MembersArea.Login")}
-          </Nav.Link>
-          <Nav.Link
-            eventKey='2'
-            as={Link}
-            className='me-2'
-            to={"/users/logout"}>
-            {t("nav.MembersArea.Logout")}
-          </Nav.Link>
-        </Nav>
-        <Nav>
-          <Nav.Link eventKey={3} href='#memes'>
-            About Us
-          </Nav.Link>
+          {isAuthenticated && (
+            <>
+              <NavDropdown
+                style={{ backgroundColor: "rgba(255, 255, 255, 0.1)" }} // Add this style
+                title={t("nav.MembersArea.Profile")}
+                id='collapsible-nav-dropdown'>
+                <NavDropdown.Item eventKey='27' as={Link} to={"users/profile"}>
+                  {activeUser.name}
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item eventKey='29' as={Link} to={"users/logout"}>
+                  {t("nav.MembersArea.Logout")}
+                </NavDropdown.Item>
+              </NavDropdown>
+              <Nav.Link eventKey='2' as={Link} className='me-2' to={"/family"}>
+                {t("nav.Family")}
+              </Nav.Link>
+            </>
+          )}
+
+          {!isAuthenticated && (
+            <Nav.Link
+              eventKey='1'
+              as={Link}
+              className='me-2'
+              to={"/users/login"}>
+              {t("nav.Login")}
+            </Nav.Link>
+          )}
         </Nav>
 
         <LanguageSwitcher fluid />

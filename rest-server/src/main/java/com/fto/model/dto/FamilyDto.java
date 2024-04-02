@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FamilyDto {
-    @NotEmpty
-    private Long userId;
+
     @NotEmpty
     @Size(min = 3, max = 20, message = "Please enter between 3 and 20 characters.")
     private String name;
@@ -18,14 +17,7 @@ public class FamilyDto {
     public FamilyDto() {
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public FamilyDto setUserId(Long userId) {
-        this.userId = userId;
-        return this;
-    }
 
     public String getName() {
         return name;
