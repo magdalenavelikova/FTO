@@ -8,31 +8,22 @@ import java.util.List;
 @Table(name = "family_members")
 public class FamilyMemberEntity extends BaseEntity{
 
-    @OneToOne
-    private UserEntity user;
+
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
     private String pinCode;
-    @OneToMany()
-    private List<FamilyEntity> families;
+
     @OneToOne
     private FamilyRoleEntity role;
     @OneToOne
     private AgeCategoryEntity ageCategory;
-        private String pictureUrl;
+    private String pictureUrl;
 
     public FamilyMemberEntity() {
     }
 
-    public UserEntity getUser() {
-        return user;
-    }
 
-    public FamilyMemberEntity setUser(UserEntity user) {
-        this.user = user;
-        return this;
-    }
 
     public String getName() {
         return name;
@@ -79,12 +70,5 @@ public class FamilyMemberEntity extends BaseEntity{
         return this;
     }
 
-    public List<FamilyEntity> getFamilies() {
-        return families;
-    }
 
-    public FamilyMemberEntity setFamilies(List<FamilyEntity> families) {
-        this.families = families;
-        return this;
-    }
 }

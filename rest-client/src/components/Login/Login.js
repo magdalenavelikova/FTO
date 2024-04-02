@@ -1,4 +1,12 @@
-import { Button, Container, Form, Spinner, Nav } from "react-bootstrap";
+import {
+  Button,
+  Container,
+  Form,
+  Spinner,
+  Nav,
+  Row,
+  Col,
+} from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../contexts/AuthContext";
@@ -12,6 +20,8 @@ export const LoginPage = ({ onSelectHandler }) => {
   const { onLoginSubmitHandler, onOauthLoginSubmitHandler, errors, spinner } =
     useAuthContext();
   const [eye, setEye] = useState(true);
+  useAuthContext();
+
   const [password, setPassword] = useState("password");
   const [isLoading, setIsLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
@@ -32,15 +42,6 @@ export const LoginPage = ({ onSelectHandler }) => {
     setIsLogin(result);
   };
 
-  /* const handleFacebookLogin = async () => {
-    try {
-      // Make a request to the backend server to initiate the Facebook OAuth2 flow
-      const response = await axios.get("/auth/facebook");
-      window.location.href = response.data.redirectUrl;
-    } catch (error) {
-      console.error("Error initiating Facebook login:", error);
-    }
-  }; */
   useEffect(() => {
     if (!isLogin) return;
     navigate("/");
@@ -62,7 +63,7 @@ export const LoginPage = ({ onSelectHandler }) => {
   }, [spinner]);
 
   return (
-    <Container className='m-auto container-fluid-md container-sm'>
+    <Container className='m-auto container-fluid-md container-sm '>
       <Form
         noValidate
         validated={validated}
@@ -77,11 +78,10 @@ export const LoginPage = ({ onSelectHandler }) => {
             type='email'
             placeholder={t("email")}
             value={formValues[LoginFormKeys.Username]}
-            autoComplete='on'
+            autoComplete='username'
             onChange={onChangeHandler}
           />
         </Form.Group>
-
         <Form.Group className='mb-3' controlId='formBasicPassword'>
           <Form.Label>{t("forms.Password")}</Form.Label>
           <div className='form'>
@@ -91,7 +91,7 @@ export const LoginPage = ({ onSelectHandler }) => {
               value={formValues[LoginFormKeys.Password]}
               onChange={onChangeHandler}
               type={password}
-              autoComplete='on'
+              autoComplete='current-password'
               placeholder={t("forms.Password")}
             />
             <i
@@ -105,30 +105,32 @@ export const LoginPage = ({ onSelectHandler }) => {
             </Form.Label>
           )}
         </Form.Group>
-
-        <Button
-          variant='secondary'
-          className='col-md-3  m-auto mt-4 mb-3'
-          type='submit'>
-          {" "}
-          {isLoading && (
-            <Spinner
-              as='span'
-              animation='border'
-              size='sm'
-              role='status'
-              aria-hidden='true'
-              className='me-1'
-            />
-          )}
-          {t("forms.Button.Login")}
-        </Button>
+        <Container className='m-auto container-fluid-md container-sm mb-3 pt-lg-2 '>
+          <Row className='m-auto'>
+            <Col className='m-auto mb-2'>
+              <Button variant='secondary' type='submit'>
+                {isLoading && (
+                  <Spinner
+                    as='span'
+                    animation='border'
+                    size='sm'
+                    role='status'
+                    aria-hidden='true'
+                    className='me-1'
+                  />
+                )}
+                {t("forms.Button.Login")}
+              </Button>
+            </Col>
+            <Col className='m-auto '>
+              <GoogleLogin onGoogleSignIn={onGoogleSignIn} text='Google' />
+            </Col>
+          </Row>
+        </Container>
       </Form>
       <Container className='m-auto container-sm mb-3 pt-lg-2'>
-        <GoogleLogin onGoogleSignIn={onGoogleSignIn} text='Google' />
-        {/*  <button onClick={handleFacebookLogin}>Login with Facebook</button> */}
         <Link
-          className={"nav-link d-inline-block me-4 mt-lg-4"}
+          className={"nav-link d-inline-block me-4 mt-2 mt-lg-4"}
           style={{ textDecoration: "none" }}
           onClick={() => onSelectHandler("register")}>
           {t("linkRegister")}

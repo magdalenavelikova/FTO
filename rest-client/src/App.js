@@ -5,6 +5,7 @@ import { Home } from "./components/Home/Home";
 import { AuthProvider } from "./contexts/AuthContext";
 import { WrapperLogin } from "./components/Wrapper/WrapperLogin";
 import { Logout } from "./components/Logout/Logout";
+import { useEffect } from "react";
 
 function App() {
   const lang = localStorage.getItem("lang");

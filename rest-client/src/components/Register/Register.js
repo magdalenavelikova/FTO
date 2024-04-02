@@ -134,6 +134,7 @@ export const RegisterPage = () => {
             <Form.Label>{t("email")} </Form.Label>
             <Form.Control
               required
+              autoComplete='username'
               name={RegisterFormKeys.Email}
               value={formValues[RegisterFormKeys.Email]}
               onChange={onChangeHandler}
@@ -157,6 +158,7 @@ export const RegisterPage = () => {
             <div className='form'>
               <Form.Control
                 required
+                autoComplete='password'
                 name={RegisterFormKeys.Password}
                 value={formValues[RegisterFormKeys.Password]}
                 onChange={onChangeHandler}
@@ -181,6 +183,7 @@ export const RegisterPage = () => {
             <div className='form'>
               <Form.Control
                 required
+                autoComplete='password'
                 name={RegisterFormKeys.ConfirmPassword}
                 value={formValues[RegisterFormKeys.ConfirmPassword]}
                 onChange={onChangeHandler}

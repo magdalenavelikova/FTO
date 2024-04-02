@@ -3,6 +3,7 @@ package com.fto.service.impl;
 import com.fto.exception.UserNotFoundException;
 import com.fto.model.AppUserDetails;
 import com.fto.model.dto.IdTokenRequestDto;
+import com.fto.model.dto.RegisterUserDto;
 import com.fto.model.dto.UserDto;
 import com.fto.model.entity.UserEntity;
 import com.fto.model.entity.UserRoleEntity;
@@ -25,12 +26,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.ServletWebRequest;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -93,6 +96,21 @@ public class UserServiceImpl implements UserService {
         }
         user = createOrUpdateUser(user);
         return this.login(user.getEmail());
+
+    }
+
+    @Override
+    public UserDto registerNewUserAccount(RegisterUserDto registerUserDto, ServletWebRequest request) {
+        UserEntity userEntity = userMapper.userRegisterDtoToUserEntity(registerUserDto);
+        String rowPassword = userEntity.getPassword();
+        String password = passwordEncoder.encode(rowPassword);
+        userEntity.setPassword(password);
+        userEntity.setCreated(LocalDateTime.now());
+        Optional<UserRoleEntity> moderator = userRoleRepository.findUserRoleEntitiesByRole(UserRoleEnum.FAMILY_MODERATOR);
+        moderator.ifPresent(userEntity::addRole);
+        return   userMapper.userEntityToUserDto(userRepository.save(userEntity));
+
+
 
     }
 

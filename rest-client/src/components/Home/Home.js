@@ -38,10 +38,9 @@ export const Home = () => {
             </h2>
           </Row>
         </Col>
-        {/*  <Col className='mt-lg-5 pt-lg-5 pt-sm-3'>
+        <Col className='mt-lg-5 mt-md-5 pt-lg-5  pt-md-5 pt-sm-3'>
           <AuthTab></AuthTab>
-        </Col> */}
-        <Col></Col>
+        </Col>
       </Row>
     </Container>
   );

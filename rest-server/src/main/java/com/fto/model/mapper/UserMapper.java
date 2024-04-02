@@ -1,6 +1,7 @@
 package com.fto.model.mapper;
 
 
+import com.fto.model.dto.RegisterUserDto;
 import com.fto.model.dto.UserDto;
 import com.fto.model.entity.UserEntity;
 import org.mapstruct.Mapper;
@@ -13,5 +14,6 @@ public interface UserMapper {
 
     @Mapping(source = "created", target = "created", dateFormat = "dd.MM.yyyy")
     UserDto userEntityToUserDto(UserEntity userEntity);
+    UserEntity userRegisterDtoToUserEntity(RegisterUserDto registerDto);
 
 }

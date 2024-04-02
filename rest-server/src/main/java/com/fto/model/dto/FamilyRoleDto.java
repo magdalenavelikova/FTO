@@ -1,20 +1,11 @@
 package com.fto.model.dto;
-public class FamilyRoleDto {
-    private Long id;
 
+public class FamilyRoleDto {
     private String familyRole;
 
     public FamilyRoleDto() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public FamilyRoleDto setId(Long id) {
-        this.id = id;
-        return this;
-    }
 
     public String getFamilyRole() {
         return familyRole;

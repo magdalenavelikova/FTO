@@ -1,6 +1,7 @@
 package com.fto.model.dto;
 
 public class UserRoleDto {
+
     private String role;
 
     public UserRoleDto() {

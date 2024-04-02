@@ -15,7 +15,7 @@ export default function GoogleLogin({
     // https://developers.google.com/identity/gsi/web/reference/js-reference#google.accounts.id.renderButton
     window.google.accounts.id.renderButton(
       googleSignInButton.current,
-      { theme: "outline", size: "large", text, width: "200" } // customization attributes
+      { theme: "outline", size: "large", text, width: "100%" } // customization attributes
     );
   });
 

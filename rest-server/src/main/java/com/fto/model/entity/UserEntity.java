@@ -21,11 +21,12 @@ public class UserEntity extends BaseEntity {
     @Column(columnDefinition = "boolean default false")
     private boolean enabled;
     @OneToMany()
-    private List<FamilyEntity> families;
+    private List<FamilyEntity> families=new ArrayList<>();;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<UserRoleEntity> roles = new ArrayList<>();
 
     public UserEntity() {
+
     }
 
     public UserEntity(String email, String name, String pictureUrl) {
