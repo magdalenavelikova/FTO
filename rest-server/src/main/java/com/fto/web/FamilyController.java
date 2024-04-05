@@ -2,6 +2,8 @@ package com.fto.web;
 
 import com.fto.model.AppUserDetails;
 import com.fto.model.dto.FamilyDto;
+import com.fto.model.dto.FamilyMemberDto;
+import com.fto.model.dto.FamilyViewDto;
 import com.fto.service.FamilyService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -24,17 +26,26 @@ public class FamilyController {
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('ADMIN') || hasRole('FAMILY_MODERATOR')")
-    public ResponseEntity<FamilyDto> create(@RequestBody @Valid FamilyDto family,
-                                            @AuthenticationPrincipal AppUserDetails user) {
-        FamilyDto saved = familyService.createFamily(family, user);
+    public ResponseEntity<FamilyViewDto> create(@RequestBody @Valid FamilyDto family,
+                                                @AuthenticationPrincipal AppUserDetails user) {
+        FamilyViewDto saved = familyService.createFamily(family, user);
+        return ResponseEntity.
+                status(HttpStatus.CREATED).
+                body(saved);
+    }
+    @PostMapping("/member/add")
+    @PreAuthorize("hasRole('ADMIN') || hasRole('FAMILY_MODERATOR')")
+    public ResponseEntity<FamilyViewDto> createMember(@RequestBody @Valid FamilyMemberDto member,
+                                                @AuthenticationPrincipal AppUserDetails user) {
+        FamilyViewDto saved = familyService.addMember(member, user);
         return ResponseEntity.
                 status(HttpStatus.CREATED).
                 body(saved);
     }
 
     @GetMapping
-    public ResponseEntity<List<FamilyDto>> getAll(@AuthenticationPrincipal AppUserDetails user) {
-        List<FamilyDto> families = familyService.getAll(user);
+    public ResponseEntity<List<FamilyViewDto>> getAll(@AuthenticationPrincipal AppUserDetails user) {
+        List<FamilyViewDto> families = familyService.getAll(user);
         return ResponseEntity.
                 status(HttpStatus.FOUND).
                 body(families);

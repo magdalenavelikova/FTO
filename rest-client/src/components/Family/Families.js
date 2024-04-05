@@ -27,13 +27,13 @@ export const Families = () => {
     setSelectedFamily({});
   };
 
-  const onDeleteClick = (contactId) => {
-    setSelectedFamily(familyList.filter((l) => l.id === contactId));
-    setDeleteFamilyShow(contactId);
+  const onDeleteClick = (familyId) => {
+    setSelectedFamily(familyList.filter((f) => f.id === familyId));
+    setDeleteFamilyShow(familyId);
   };
-  const onEditClick = (contactId) => {
-    setSelectedFamily(familyList.filter((l) => l.id === contactId));
-    setEditFamilyShow(contactId);
+  const onEditClick = (familyId) => {
+    setSelectedFamily(familyList.filter((f) => f.id === familyId));
+    setEditFamilyShow(familyId);
   };
   useEffect(() => {
     setFamilyList(families);
@@ -79,21 +79,20 @@ export const Families = () => {
           backgroundPosition: "center",
           minHeight: "100vh",
         }}
-        className='pt-5'>
-        <Row className='align-items-md-center'>
-          {familyList.length === 0 && <NewFamily></NewFamily>}
-          {familyList.length > 0 && <NewFamily></NewFamily>}
+        className='pt-2'>
+        <Row className='m-auto'>
+          <NewFamily></NewFamily>
         </Row>
-        <Row className='align-items-md-center'>
+        <Row className='align-items-center'>
           {familyList.length > 0 &&
-            familyList.map((c) => {
+            familyList.map((f) => {
               return (
                 <Col
-                  key={c.id}
-                  className='m-auto mt-5 mb-5 col-xl-4 col-sm-6 p-2'>
+                  key={f.id}
+                  className='align-items-center m-auto mt-5 mb-5 col-xl-2 col-sm-6 p-2'>
                   <FamilyItem
-                    key={c.id}
-                    family={c}
+                    key={f.id + f.id}
+                    family={f}
                     onDeleteClick={onDeleteClick}
                     onEditClick={onEditClick}></FamilyItem>
                 </Col>

@@ -1,29 +1,29 @@
 package com.fto.model.entity;
 
+import com.fto.model.enums.AgeCategoryEnum;
+import com.fto.model.enums.FamilyRoleEnum;
 import jakarta.persistence.*;
-
-import java.util.List;
 
 @Entity
 @Table(name = "family_members")
-public class FamilyMemberEntity extends BaseEntity{
-
+public class FamilyMemberEntity extends BaseEntity {
 
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
     private String pinCode;
-
-    @OneToOne
-    private FamilyRoleEntity role;
-    @OneToOne
-    private AgeCategoryEntity ageCategory;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private FamilyRoleEnum role;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private AgeCategoryEnum ageCategory;
     private String pictureUrl;
+    @ManyToOne
+    private FamilyEntity family;
 
     public FamilyMemberEntity() {
     }
-
-
 
     public String getName() {
         return name;
@@ -43,21 +43,21 @@ public class FamilyMemberEntity extends BaseEntity{
         return this;
     }
 
-    public AgeCategoryEntity getAgeCategory() {
-        return ageCategory;
-    }
-
-    public FamilyMemberEntity setAgeCategory(AgeCategoryEntity ageCategory) {
-        this.ageCategory = ageCategory;
-        return this;
-    }
-
-    public FamilyRoleEntity getRole() {
+    public FamilyRoleEnum getRole() {
         return role;
     }
 
-    public FamilyMemberEntity setRole(FamilyRoleEntity role) {
+    public FamilyMemberEntity setRole(FamilyRoleEnum role) {
         this.role = role;
+        return this;
+    }
+
+    public AgeCategoryEnum getAgeCategory() {
+        return ageCategory;
+    }
+
+    public FamilyMemberEntity setAgeCategory(AgeCategoryEnum ageCategory) {
+        this.ageCategory = ageCategory;
         return this;
     }
 
@@ -70,5 +70,12 @@ public class FamilyMemberEntity extends BaseEntity{
         return this;
     }
 
+    public FamilyEntity getFamily() {
+        return family;
+    }
 
+    public FamilyMemberEntity setFamily(FamilyEntity family) {
+        this.family = family;
+        return this;
+    }
 }

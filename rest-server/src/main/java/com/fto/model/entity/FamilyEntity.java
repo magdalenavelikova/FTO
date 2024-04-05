@@ -12,7 +12,7 @@ public class FamilyEntity extends BaseEntity {
     private UserEntity user;
     @Column(nullable = false)
     private String name;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "family", fetch = FetchType.EAGER)
     private List<FamilyMemberEntity> members = new ArrayList<>();
 
     public FamilyEntity() {

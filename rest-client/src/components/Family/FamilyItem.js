@@ -1,4 +1,4 @@
-import { Container, NavDropdown } from "react-bootstrap";
+import { Container, NavDropdown, Row, Col } from "react-bootstrap";
 
 import Card from "react-bootstrap/Card";
 
@@ -10,25 +10,14 @@ export const FamilyItem = ({ family, onEditClick, onDeleteClick }) => {
   const { t } = useTranslation();
   const lang = localStorage.getItem("lang");
   const { isAuthenticated, authorities } = useAuthContext();
-
+  const bgCardImage = require("../../assets/logo.png");
   const isAuthorized =
     isAuthenticated &&
     (authorities.some((item) => item === "ROLE_ADMIN") ||
-      authorities.some((item) => item === "ROLE_MODERATOR"));
+      authorities.some((item) => item === "ROLE_FAMILY_MODERATOR"));
 
   return (
     <Card className='mx-3 m-2 p-2' style={{ width: "20rem" }}>
-      {isAuthorized && (
-        <NavDropdown id='nav-dropdown'>
-          <NavDropdown.Item as={Link} onClick={() => onEditClick(family.id)}>
-            {t("nav.Edit")}
-          </NavDropdown.Item>
-          <NavDropdown.Item as={Link} onClick={() => onDeleteClick(family.id)}>
-            {t("nav.Delete")}
-          </NavDropdown.Item>
-        </NavDropdown>
-      )}
-      <Container fluid className='align-items-center m-2 p-2'></Container>
       {/*  <Card.Img
         className='avatar-md rounded-circle img-thumbnail'
         src={
@@ -39,16 +28,52 @@ export const FamilyItem = ({ family, onEditClick, onDeleteClick }) => {
             : woman
         }
       /> */}
+      <Card.Header className='fluid'>
+        <Row className='col-md-12 m-auto'>
+          <Col className='col-10'>
+            <Card.Title className='font-size-16 text-align-center mb-1'>
+              {family && family.name}
+            </Card.Title>
+          </Col>
+          <Col className='col-2'>
+            {isAuthorized && (
+              <NavDropdown id='nav-dropdown'>
+                <NavDropdown.Item
+                  as={Link}
+                  onClick={() => onEditClick(family.id)}>
+                  {t("nav.Edit")}
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  as={Link}
+                  onClick={() => onDeleteClick(family.id)}>
+                  {t("nav.Delete")}
+                </NavDropdown.Item>
+              </NavDropdown>
+            )}
+          </Col>
+        </Row>
+      </Card.Header>
+
       <Card.Body>
-        <Container className='flex-1 ms-3'>
-          <Card.Title className='font-size-16 mb-1'>
+        {/* <Container className='flex-1 ms-3'>
+           <Card.Title className='font-size-16 mb-1'>
             {family && family.name}
           </Card.Title>
-        </Container>
+        </Container> */}
         <Container className='mt-3 pt-1'>
-          <Card.Text className='text-muted mb-2'></Card.Text>
+          <Card.Text className='text-muted mb-2'>dfghdfgfdg</Card.Text>
+          <Card.Text className='text-muted mb-2'>dfghdfgfdg</Card.Text>
+          <Card.Text className='text-muted mb-2'>dfghdfgfdg</Card.Text>
+          <Card.Text className='text-muted mb-2'>dfghdfgfdg</Card.Text>
         </Container>
       </Card.Body>
+      <Card.Footer
+        style={{
+          backgroundImage: `url(${bgCardImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          minHeight: "20vh",
+        }}></Card.Footer>
     </Card>
   );
 };

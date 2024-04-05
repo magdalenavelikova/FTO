@@ -52,16 +52,7 @@ const logout = () => {
     }
   }, [decodeJwt.jti]);
 
-  /* useEffect(() => {
-    console.log(activeUser);
-    if (!activeUser.hasOwnProperty("name")) {
-      setSuccess({});
-      setErrors({});
-      setActiveUser({});
-      setJwt({});
-    }
-  }, []); */
-
+  
   const onLoginSubmitHandler = async (data) => {
     try {
       setErrors({});
@@ -76,7 +67,7 @@ const logout = () => {
         setJwt(result[1]);
         setActiveUser(result[0]);
         setSpinner(false);
-        navigate("/");
+        navigate("/family");
       }
     } catch (error) {
       setErrors({ error: "Invalid credential" });
@@ -96,7 +87,7 @@ const logout = () => {
         setJwt(result[1]);
         setActiveUser(result[0]);
         setSpinner(false);
-        navigate("/");
+        navigate("/family");
       }
     } catch (error) {
       setErrors({ error: "Invalid credential" });

@@ -8,6 +8,7 @@ import { Logout } from "./components/Logout/Logout";
 import { useEffect } from "react";
 import { FamilyProvider } from "./contexts/FamilyContext";
 import { Families } from "./components/Family/Families";
+import { NewMember } from "./components/FamilyMembers/NewMember";
 
 function App() {
   const lang = localStorage.getItem("lang");
@@ -21,6 +22,7 @@ function App() {
             <Route path='users/login' element={<WrapperLogin />} />
             <Route path='users/logout' element={<Logout />} />
             <Route path='family' element={<Families />} />
+            <Route path='family/member/add' element={<NewMember />} />
           </Routes>
         </FamilyProvider>
       </AuthProvider>

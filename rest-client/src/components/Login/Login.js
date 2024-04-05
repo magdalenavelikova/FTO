@@ -108,7 +108,7 @@ export const LoginPage = ({ onSelectHandler }) => {
         <Container className='m-auto container-fluid-md container-sm mb-3 pt-lg-2 '>
           <Row className='m-auto'>
             <Col className='m-auto mb-2'>
-              <Button variant='secondary' type='submit'>
+              <Button variant='light' type='submit'>
                 {isLoading && (
                   <Spinner
                     as='span'

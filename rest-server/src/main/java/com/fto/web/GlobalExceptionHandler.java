@@ -1,9 +1,12 @@
 package com.fto.web;
 
+
 import com.fto.exception.UserNotFoundException;
 import com.fto.exception.UserNotUniqueException;
 import com.fto.model.AppException;
+import com.fto.model.dto.FamilyErrorDto;
 import com.fto.model.dto.UserErrorDto;
+import jakarta.validation.ConstraintDefinitionException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -24,6 +27,14 @@ import java.util.Map;
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public GlobalExceptionHandler() {
     }
+    @ExceptionHandler(ConstraintDefinitionException.class)
+    public ResponseEntity<Object> handleConstraintDefinitionException(
+            ConstraintDefinitionException ex, WebRequest request) {
+      String errorMessage = "UniqueFamilyName: " + ex.getMessage()+ex.getLocalizedMessage();
+        return new ResponseEntity<>(errorMessage, HttpStatus.CONFLICT);
+    }
+
+
 
     @ExceptionHandler(UserNotUniqueException.class)
     public ResponseEntity<UserErrorDto> onUsernameNotUnique(UserNotUniqueException unue) {
@@ -32,6 +43,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return
                 ResponseEntity.status(HttpStatus.CONFLICT).body(userErrorDto);
     }
+//    @ExceptionHandler(FamilyNameNotUniqueException.class)
+//    public ResponseEntity<FamilyErrorDto> onFamilyNameNotUnique(FamilyNameNotUniqueException fnue) {
+//        FamilyErrorDto familyErrorDto = new FamilyErrorDto(fnue.getFamilyName(), "Family name is already exist!");
+//
+//        return
+//                ResponseEntity.status(HttpStatus.CONFLICT).body(familyErrorDto);
+//    }
+//
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<UserErrorDto> onUserNotFound(UserNotFoundException unfe) {

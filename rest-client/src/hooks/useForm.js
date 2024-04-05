@@ -15,7 +15,6 @@ export const useForm = (initialValues, onSubmitHandler) => {
 
   const onSubmit = (e) => {
     const form = e.currentTarget;
-
     if (form.checkValidity() === false) {
       e.preventDefault();
       e.stopPropagation();

@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  color: white;
+  font-family: "Abril Fatface", serif;
 }
 
 .App-logo {
@@ -47,11 +49,18 @@
   font-style: normal;
   color: white;
 }
+.form-title {
+  font-size: 2rem;
+}
 
 .form {
   position: relative;
+  color: white !important;
 }
-
+.form-control {
+  background-color: transparent;
+  color: #77b890 !important;
+}
 .form .fa-search {
   position: absolute;
   top: 15px;
@@ -63,14 +72,14 @@
   position: absolute;
   top: 10px;
   right: 12px;
-  color: #9ca3af;
+  color: #77b890;
 }
 
 .form .fa-eye {
   position: absolute;
   top: 10px;
   right: 12px;
-  color: #9ca3af;
+  color: #77b890;
 }
 .form-input {
   height: 45px;
@@ -81,6 +90,7 @@
 .form-input:focus {
   box-shadow: none;
   border: none;
+  background-color: transparent;
 }
 .dropdown-item {
   color: #77b890 !important;
@@ -99,7 +109,30 @@
 .nav-link {
   color: #77b890 !important;
 }
-
+.modal-content {
+  color: #77b890 !important;
+}
 .transparent-input .form-control {
   background-color: transparent !important;
+}
+.btn-light {
+  color: #77b890 !important;
+}
+.card {
+  color: #77b890 !important;
+}
+
+.card-text {
+  color: #77b890 !important;
+}
+.form-select {
+  background-color: transparent;
+  color: #77b890 !important;
+}
+.accordion-item {
+  background-color: transparent;
+  color: #77b890 !important;
+}
+.accordion > h2 {
+  color: #77b890 !important;
 }

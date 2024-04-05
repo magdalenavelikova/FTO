@@ -206,7 +206,7 @@ export const RegisterPage = () => {
 
           <Button
             className='col-md-6  m-auto mt-4 mb-3'
-            variant='secondary'
+            variant='light'
             type='submit'>
             {isLoading && (
               <Spinner

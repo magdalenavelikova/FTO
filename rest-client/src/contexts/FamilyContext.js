@@ -12,6 +12,7 @@ export const FamilyProvider = ({ children }) => {
   const [error, setError] = useState({});
   const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState(false);
+  const [members, setMembers] = useState([]);
   useEffect(() => {
     try {
       Promise.all([familyService.getAll(token)]).then(([families]) => {
@@ -34,8 +35,7 @@ export const FamilyProvider = ({ children }) => {
   const onCreateFamilySubmitHandler = async (data) => {
     const result = await familyService.create(data, token);
     setError({});
-
-    if (result.status == "400") {
+    if (result.status === "CONFLICT") {
       setErrors(result.fieldErrors);
     } else {
       setFamilies((state) => [...state, result]);
@@ -43,12 +43,36 @@ export const FamilyProvider = ({ children }) => {
       navigate("/family");
     }
   };
+
+  const onCreateMemberSubmitHandler = async (data) => {
+    const result = await familyService.addMember(data, token);
+    setError({});
+    console.log(result);
+    if (result.status == "400" || result.status == "401") {
+      setErrors(result.fieldErrors);
+    } else {
+      setFamilies((state) => [...state, result]);
+      setErrors({});
+      navigate("/family");
+    }
+  };
+  const onFamilyDelete = async (familyId) => {
+    try {
+      await familyService.remove(familyId);
+    } catch (error) {
+      setErrors(error);
+    }
+    setFamilies((state) => state.filter((x) => x.id !== familyId));
+  };
+
   const clearErrors = () => {
     setError({});
   };
 
   const context = {
     onCreateFamilySubmitHandler,
+    onCreateMemberSubmitHandler,
+    onFamilyDelete,
     clearErrors,
     success,
     error,

@@ -38,7 +38,7 @@ export const Navigation = () => {
           {isAuthenticated && (
             <>
               <NavDropdown
-                style={{ backgroundColor: "rgba(255, 255, 255, 0.1)" }} // Add this style
+                style={{ backgroundColor: "rgba(255, 255, 255, 0.1)" }}
                 title={t("nav.MembersArea.Profile")}
                 id='collapsible-nav-dropdown'>
                 <NavDropdown.Item eventKey='27' as={Link} to={"users/profile"}>

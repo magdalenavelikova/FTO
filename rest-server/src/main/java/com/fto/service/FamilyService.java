@@ -2,13 +2,17 @@ package com.fto.service;
 
 import com.fto.model.AppUserDetails;
 import com.fto.model.dto.FamilyDto;
+import com.fto.model.dto.FamilyMemberDto;
+import com.fto.model.dto.FamilyViewDto;
 
 import java.util.List;
 
 public interface FamilyService {
 
 
-    FamilyDto createFamily(FamilyDto family, AppUserDetails user);
+    FamilyViewDto createFamily(FamilyDto family, AppUserDetails user);
 
-    List<FamilyDto> getAll(AppUserDetails user);
+    List<FamilyViewDto> getAll(AppUserDetails user);
+
+    FamilyViewDto addMember(FamilyMemberDto member, AppUserDetails user);
 }

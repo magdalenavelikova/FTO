@@ -1,23 +1,40 @@
 package com.fto.model.dto;
 
+import com.fto.model.enums.AgeCategoryEnum;
+import com.fto.model.enums.FamilyRoleEnum;
+import com.fto.validation.annotation.FieldMatch;
+import com.fto.validation.annotation.UniqueFamilyMemberName;
+import com.fto.validation.annotation.UniqueFamilyName;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-
+//@UniqueFamilyMemberName(familyName = "familyName",
+//        memberName = "name",
+//        message = "There is already a registered member with that name in this family.")
 public class FamilyMemberDto {
+    @NotEmpty
+    private String familyName;
     @NotEmpty
     @Size(min = 3, max = 20, message = "Please enter between 3 and 20 characters.")
     private String name;
     @NotEmpty
     @Size(min = 4, max = 4, message = "Please enter 4 characters.")
     private String pinCode;
-
     @NotEmpty
-    private FamilyRoleDto familyRole;
+    private String role;
     @NotEmpty
-    private AgeCategoryDto ageCategory;
+    private String ageCategory;
     private String pictureUrl;
 
     public FamilyMemberDto() {
+    }
+
+    public String getFamilyName() {
+        return familyName;
+    }
+
+    public FamilyMemberDto setFamilyName(String familyName) {
+        this.familyName = familyName;
+        return this;
     }
 
     public String getName() {
@@ -38,20 +55,20 @@ public class FamilyMemberDto {
         return this;
     }
 
-    public FamilyRoleDto getFamilyRole() {
-        return familyRole;
+    public String getRole() {
+        return role;
     }
 
-    public FamilyMemberDto setFamilyRole(FamilyRoleDto familyRole) {
-        this.familyRole = familyRole;
+    public FamilyMemberDto setRole(String role) {
+        this.role = role;
         return this;
     }
 
-    public AgeCategoryDto getAgeCategory() {
+    public String getAgeCategory() {
         return ageCategory;
     }
 
-    public FamilyMemberDto setAgeCategory(AgeCategoryDto ageCategory) {
+    public FamilyMemberDto setAgeCategory(String ageCategory) {
         this.ageCategory = ageCategory;
         return this;
     }
