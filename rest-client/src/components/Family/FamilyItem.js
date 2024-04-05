@@ -61,10 +61,16 @@ export const FamilyItem = ({ family, onEditClick, onDeleteClick }) => {
           </Card.Title>
         </Container> */}
         <Container className='mt-3 pt-1'>
-          <Card.Text className='text-muted mb-2'>dfghdfgfdg</Card.Text>
-          <Card.Text className='text-muted mb-2'>dfghdfgfdg</Card.Text>
-          <Card.Text className='text-muted mb-2'>dfghdfgfdg</Card.Text>
-          <Card.Text className='text-muted mb-2'>dfghdfgfdg</Card.Text>
+          {family.members &&
+            family.members.length > 0 &&
+            family.members.map((m) => {
+              return (
+                <Card.Text key={m.id} className='text-muted mb-2'>
+                  {m.name}&nbsp; &nbsp; {m.ageCategory} &nbsp; &nbsp;
+                  {m.role}
+                </Card.Text>
+              );
+            })}
         </Container>
       </Card.Body>
       <Card.Footer

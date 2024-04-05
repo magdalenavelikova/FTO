@@ -1,15 +1,8 @@
 package com.fto.model.dto;
 
-import com.fto.model.enums.AgeCategoryEnum;
-import com.fto.model.enums.FamilyRoleEnum;
-import com.fto.validation.annotation.FieldMatch;
-import com.fto.validation.annotation.UniqueFamilyMemberName;
-import com.fto.validation.annotation.UniqueFamilyName;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-//@UniqueFamilyMemberName(familyName = "familyName",
-//        memberName = "name",
-//        message = "There is already a registered member with that name in this family.")
+
 public class FamilyMemberDto {
     @NotEmpty
     private String familyName;

@@ -112,6 +112,9 @@
 .modal-content {
   color: #77b890 !important;
 }
+.accordion-button {
+  color: #77b890;
+}
 .transparent-input .form-control {
   background-color: transparent !important;
 }

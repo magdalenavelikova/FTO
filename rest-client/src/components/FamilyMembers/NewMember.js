@@ -59,7 +59,7 @@ export const NewMember = ({ familyName }) => {
       }
     }
   }, [errors]);
-
+  console.log(name);
   return (
     <>
       <Container className='m-auto container-fluid  '>

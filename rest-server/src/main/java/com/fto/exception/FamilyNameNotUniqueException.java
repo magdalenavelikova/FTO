@@ -8,6 +8,7 @@ public class FamilyNameNotUniqueException extends RuntimeException {
 
     private final String familyName;
 
+
     public FamilyNameNotUniqueException(String familyName) {
         super("There is already a registered family with this name " + familyName + "!");
         this.familyName = familyName;
@@ -16,4 +17,7 @@ public class FamilyNameNotUniqueException extends RuntimeException {
     public String getFamilyName() {
         return familyName;
     }
+
+
+
 }

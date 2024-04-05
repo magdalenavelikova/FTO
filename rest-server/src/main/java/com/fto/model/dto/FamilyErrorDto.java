@@ -4,12 +4,15 @@ public class FamilyErrorDto {
 
 
     private final String familyName;
-    private final String description;
+       private final String description;
 
     public FamilyErrorDto(String familyName, String description) {
         this.familyName = familyName;
         this.description = description;
+
     }
+
+
 
     public String getFamilyName() {
         return familyName;

@@ -3,17 +3,17 @@ package com.fto.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(value = HttpStatus.CONFLICT, reason = "FamilyName is not unique.")
-public class FamilyNameNotUniqueException extends RuntimeException {
+@ResponseStatus(value = HttpStatus.CONFLICT, reason = "FamilyMember is not unique.")
+public class FamilyMemberNameNotUniqueException extends RuntimeException {
 
-    private final String familyName;
+    private final String name;
 
-    public FamilyNameNotUniqueException(String familyName) {
-        super("There is already a registered family with this name " + familyName + "!");
-        this.familyName = familyName;
+    public FamilyMemberNameNotUniqueException(String name) {
+        super("There is already a registered member with name" + name + "in this family.!");
+        this.name = name;
     }
 
-    public String getFamilyName() {
-        return familyName;
+    public String getName() {
+        return name;
     }
 }

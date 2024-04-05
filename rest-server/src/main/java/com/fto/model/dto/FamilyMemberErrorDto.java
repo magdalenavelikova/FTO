@@ -1,25 +1,22 @@
 package com.fto.model.dto;
 
-public class FamilyErrorDto {
+public class FamilyMemberErrorDto {
 
 
-    private final String familyName;
+    private final String name;
        private final String description;
 
-    public FamilyErrorDto(String familyName, String description) {
-        this.familyName = familyName;
-        this.description = description;
 
+    public FamilyMemberErrorDto(String name, String description) {
+        this.name = name;
+        this.description = description;
     }
 
-
-
-    public String getFamilyName() {
-        return familyName;
+    public String getName() {
+        return name;
     }
 
     public String getDescription() {
         return description;
     }
-
 }

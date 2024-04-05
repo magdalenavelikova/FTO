@@ -47,7 +47,10 @@ export const FamilyProvider = ({ children }) => {
   const onCreateMemberSubmitHandler = async (data) => {
     const result = await familyService.addMember(data, token);
     setError({});
-    console.log(result);
+    if (result.description == "Family member name is already exist!") {
+      setErrors({ name: result.description });
+      setSuccess({});
+    }
     if (result.status == "400" || result.status == "401") {
       setErrors(result.fieldErrors);
     } else {

@@ -1,5 +1,6 @@
 package com.fto.service.impl;
 
+import com.fto.exception.FamilyMemberNameNotUniqueException;
 import com.fto.exception.UserNotFoundException;
 import com.fto.model.AppUserDetails;
 import com.fto.model.dto.FamilyDto;
@@ -57,8 +58,9 @@ public class FamilyServiceImpl implements FamilyService {
     public FamilyViewDto addMember(FamilyMemberDto familyMemberDto, AppUserDetails user) {
         String familyName = familyMemberDto.getFamilyName();
         Optional<FamilyEntity> family = familyRepository.findByNameAndUserEmail(familyName, user.getUsername());
+        validateMember(familyMemberDto.getName(), familyName);
         FamilyMemberEntity member = familyMemberMapper.familyMemberDtoToFamilyMemberEntity(familyMemberDto);
-               member.setCreated(LocalDateTime.now());
+        member.setCreated(LocalDateTime.now());
         if (family.isPresent()) {
             FamilyEntity familyEntity = family.get();
             member.setFamily(familyEntity);
@@ -76,6 +78,8 @@ public class FamilyServiceImpl implements FamilyService {
 
     }
 
+
+
     private FamilyEntity createNewFamily(AppUserDetails user, String familyName) {
         FamilyEntity newFamily = new FamilyEntity();
         newFamily.setCreated(LocalDateTime.now());
@@ -84,5 +88,10 @@ public class FamilyServiceImpl implements FamilyService {
         newFamily.setName(familyName);
 
         return newFamily;
+    }
+    private void validateMember(String name, String familyName) {
+        if (familyMemberRepository.findByNameAndFamily_Name(name, familyName).isPresent()) {
+            throw new FamilyMemberNameNotUniqueException(name);
+        }
     }
 }
