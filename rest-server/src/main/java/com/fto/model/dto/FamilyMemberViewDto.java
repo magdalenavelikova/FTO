@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 public class FamilyMemberViewDto {
+    private Long id;
 
     private String name;
 
@@ -14,6 +15,15 @@ public class FamilyMemberViewDto {
     private String pictureUrl;
 
     public FamilyMemberViewDto() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public FamilyMemberViewDto setId(Long id) {
+        this.id = id;
+        return this;
     }
 
     public String getName() {

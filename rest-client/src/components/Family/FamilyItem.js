@@ -8,7 +8,6 @@ import { useAuthContext } from "../../contexts/AuthContext";
 
 export const FamilyItem = ({ family, onEditClick, onDeleteClick }) => {
   const { t } = useTranslation();
-  const lang = localStorage.getItem("lang");
   const { isAuthenticated, authorities } = useAuthContext();
   const bgCardImage = require("../../assets/logo.png");
   const isAuthorized =
@@ -17,7 +16,7 @@ export const FamilyItem = ({ family, onEditClick, onDeleteClick }) => {
       authorities.some((item) => item === "ROLE_FAMILY_MODERATOR"));
 
   return (
-    <Card className='mx-3 m-2 p-2' style={{ width: "20rem" }}>
+    <Card key={family.id} className='mx-3 m-2 p-2' style={{ width: "20rem" }}>
       {/*  <Card.Img
         className='avatar-md rounded-circle img-thumbnail'
         src={
@@ -65,7 +64,7 @@ export const FamilyItem = ({ family, onEditClick, onDeleteClick }) => {
             family.members.length > 0 &&
             family.members.map((m) => {
               return (
-                <Card.Text key={m.id} className='text-muted mb-2'>
+                <Card.Text key={m.id + family.id} className='text-muted mb-2'>
                   {m.name}&nbsp; &nbsp; {m.ageCategory} &nbsp; &nbsp;
                   {m.role}
                 </Card.Text>

@@ -67,7 +67,7 @@ export const NewFamily = () => {
       <Container className='m-auto container-fluid pt-5 pb-5 mt-5 border-bottom border-light'>
         <Row className='align-items-center col-md-12 m-auto'>
           {!showForm && (
-            <Col className='col-xl-3 col-md-3 col-xs-6 '>
+            <Col className='col-xl-4 col-md-6 col-xs-6 '>
               <p className='form-title'>
                 {t("nav.Family")}{" "}
                 <span

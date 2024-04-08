@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 import { useFamilyContext } from "../../contexts/FamilyContext";
 
-export const NewMember = ({ familyName }) => {
+export const NewMember = ({ familyMemberId, familyName }) => {
   const { t } = useTranslation();
   const { onCreateMemberSubmitHandler, errors, spinner } = useFamilyContext();
   const [isLoading, setIsLoading] = useState(false);
@@ -59,7 +59,7 @@ export const NewMember = ({ familyName }) => {
       }
     }
   }, [errors]);
-  console.log(name);
+
   return (
     <>
       <Container className='m-auto container-fluid  '>
@@ -70,7 +70,9 @@ export const NewMember = ({ familyName }) => {
           onSubmit={onSubmit}
           className='row g-3 m-auto mb-2 px-2'>
           <Row className='col-12 m-auto'>
-            <Form.Group className='m-auto col-4 mb-3' controlId='formBasicName'>
+            <Form.Group
+              className='m-auto col-4 mb-3'
+              controlId={"formBasicName" + familyMemberId}>
               <Form.Label>{t("nickName")}</Form.Label>
               <Form.Control
                 required
@@ -85,12 +87,15 @@ export const NewMember = ({ familyName }) => {
                 </Form.Control.Feedback>
               )}
             </Form.Group>
-            <Form.Group className=' m-auto col-4 mb-3' controlId='formPinCode'>
+            <Form.Group
+              className=' m-auto col-4 mb-3'
+              controlId={"formPinCode" + familyMemberId}>
               <Form.Label>{t("pin")}</Form.Label>
               <Form.Control
                 required
                 name={MemberFormKeys.Pin}
                 value={formValues[MemberFormKeys.Pin]}
+                autoComplete='PIN'
                 onChange={onChangeHandler}
                 type='password'
               />
@@ -104,7 +109,7 @@ export const NewMember = ({ familyName }) => {
           <Row className='col-12 m-auto'>
             <Form.Group
               className='m-auto col-4 mb-3'
-              controlId='formBasicAgeCategory'>
+              controlId={"formBasicAgeCategory" + familyMemberId}>
               <Form.Label>{t("ageCategory")}</Form.Label>
               <Form.Select
                 required
@@ -122,7 +127,9 @@ export const NewMember = ({ familyName }) => {
                 {t("validation")}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className='m-auto col-4 mb-3' controlId='formBasicRole'>
+            <Form.Group
+              className='m-auto col-4 mb-3'
+              controlId={"formBasicRole" + familyMemberId}>
               <Form.Label>{t("familyRole")}</Form.Label>
               <Form.Select
                 required

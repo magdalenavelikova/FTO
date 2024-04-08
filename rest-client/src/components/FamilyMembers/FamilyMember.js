@@ -18,7 +18,7 @@ export const FamilyMember = ({ count, familyName }) => {
             {t("Family Member")} {`${i + 1}`}
           </Accordion.Header>
           <Accordion.Body>
-            <NewMember key={i + i} familyName={familyName} />
+            <NewMember key={i} familyMemberId={i} familyName={familyName} />
           </Accordion.Body>
         </Accordion.Item>
       );

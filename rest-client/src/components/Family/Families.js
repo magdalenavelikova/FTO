@@ -78,20 +78,22 @@ export const Families = () => {
           backgroundSize: "cover",
           backgroundPosition: "center",
           minHeight: "100vh",
+          alignItems: "center",
+          justifyContent: "center",
         }}
         className='pt-2'>
         <Row className='m-auto'>
           <NewFamily></NewFamily>
         </Row>
-        <Row className='align-items-center'>
+        <Row className=' m-auto' style={{ width: "90%" }}>
           {familyList.length > 0 &&
             familyList.map((f) => {
               return (
                 <Col
                   key={f.id}
-                  className='align-items-center m-auto mt-5 mb-5 col-xl-2 col-sm-6 p-2'>
+                  className='d-flex align-item-center justify-content-center text-center m-auto mt-5 mb-5 col-xl-4 col-sm-6 p-2'>
                   <FamilyItem
-                    key={f.id + f.id}
+                    key={f.id + 20}
                     family={f}
                     onDeleteClick={onDeleteClick}
                     onEditClick={onEditClick}></FamilyItem>

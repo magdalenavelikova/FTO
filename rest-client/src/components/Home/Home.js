@@ -2,15 +2,20 @@ import { Col, Container, Row } from "react-bootstrap";
 import { AuthTab } from "../Tabs/AuthTab";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export const Home = () => {
   const bgImage = require("../../assets/family.jpg");
+  const navigate = useNavigate();
   const { isAuthenticated, activeUser, onLogoutHandler } =
     useContext(AuthContext);
   /*   useEffect(() => {
     Object.keys(activeUser).length === 0 && onLogoutHandler();
   }, []); */
-
+  useEffect(() => {
+    if (!activeUser) onLogoutHandler();
+    navigate("/family");
+  }, [activeUser]);
   return (
     <Container
       fluid

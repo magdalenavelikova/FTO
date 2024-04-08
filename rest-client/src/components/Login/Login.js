@@ -20,8 +20,6 @@ export const LoginPage = ({ onSelectHandler }) => {
   const { onLoginSubmitHandler, onOauthLoginSubmitHandler, errors, spinner } =
     useAuthContext();
   const [eye, setEye] = useState(true);
-  useAuthContext();
-
   const [password, setPassword] = useState("password");
   const [isLoading, setIsLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
@@ -37,7 +35,6 @@ export const LoginPage = ({ onSelectHandler }) => {
   };
   const onGoogleSignIn = async (res) => {
     const { credential } = res;
-
     const result = await onOauthLoginSubmitHandler(credential, setIsLogin);
     setIsLogin(result);
   };
@@ -46,6 +43,7 @@ export const LoginPage = ({ onSelectHandler }) => {
     if (!isLogin) return;
     navigate("/");
   }, [isLogin]);
+
   const LoginFormKeys = {
     Username: "username",
     Password: "password",

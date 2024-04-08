@@ -12,7 +12,7 @@ export const FamilyProvider = ({ children }) => {
   const [error, setError] = useState({});
   const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState(false);
-  const [members, setMembers] = useState([]);
+
   useEffect(() => {
     try {
       Promise.all([familyService.getAll(token)]).then(([families]) => {
