@@ -2,16 +2,23 @@ import { Button, Container, Form, Row, Spinner } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 
 import { useForm } from "../../hooks/useForm";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
-import { useFamilyContext } from "../../contexts/FamilyContext";
+import { FamilyContext } from "../../contexts/FamilyContext";
 
-export const NewMember = ({ familyMemberId, familyName }) => {
+export const NewMember = ({ familyMemberId, familyName, onChange }) => {
   const { t } = useTranslation();
-  const { onCreateMemberSubmitHandler, errors, spinner } = useFamilyContext();
+  const {
+    onCreateMemberSubmitHandler,
+    errors,
+    error,
+    spinner,
+    successMember,
+    clearErrors,
+  } = useContext(FamilyContext);
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState({});
-  const [pin, setPin] = useState({});
+  const [pinCode, setPinCode] = useState({});
 
   const MemberFormKeys = {
     FamilyName: "familyName",
@@ -31,18 +38,29 @@ export const NewMember = ({ familyMemberId, familyName }) => {
       [MemberFormKeys.AgeCategory]: "",
       [MemberFormKeys.PictureUrl]: "",
     },
+
     onCreateMemberSubmitHandler
   );
+  useEffect(() => {
+    clearErrors();
+  }, []);
+
   useEffect(() => {
     setIsLoading(spinner);
   }, [spinner]);
 
   useEffect(() => {
+    if (successMember) {
+      onChange(familyMemberId + 1);
+    }
+  }, [successMember, familyMemberId]);
+
+  useEffect(() => {
     setName({});
-    setPin({});
+    setPinCode({});
     if (errors === null) {
       setName({});
-      setPin({});
+      setPinCode({});
     } else {
       for (const [key, value] of Object.entries(errors)) {
         switch (key) {
@@ -50,9 +68,8 @@ export const NewMember = ({ familyMemberId, familyName }) => {
             setName(value);
             break;
           case "pinCode":
-            setPin(value);
+            setPinCode(value);
             break;
-
           default:
             break;
         }
@@ -60,14 +77,25 @@ export const NewMember = ({ familyMemberId, familyName }) => {
     }
   }, [errors]);
 
+  useEffect(() => {
+    setName(error);
+  }, [error]);
+
   return (
     <>
-      <Container className='m-auto container-fluid  '>
+      <Container className='m-auto container-fluid  ' key={familyMemberId}>
         <Form
+          name={"new" + familyMemberId}
           noValidate
           validated={validated}
           method='POST'
           onSubmit={onSubmit}
+          /*     onSubmit={(e) => {
+            onSubmit(e);
+            if (successMember) {
+              onChange(familyMemberId + 1);
+            }
+          }} */
           className='row g-3 m-auto mb-2 px-2'>
           <Row className='col-12 m-auto'>
             <Form.Group
@@ -81,9 +109,12 @@ export const NewMember = ({ familyMemberId, familyName }) => {
                 onChange={onChangeHandler}
                 type='text'
               />
+              <Form.Control.Feedback type='invalid' className='text-danger'>
+                {t("validation")}
+              </Form.Control.Feedback>
               {Object.keys(name).length !== 0 && (
-                <Form.Control.Feedback type='invalid' className='text-danger'>
-                  {t("validation")}
+                <Form.Control.Feedback className='text-danger'>
+                  {name}
                 </Form.Control.Feedback>
               )}
             </Form.Group>
@@ -99,9 +130,12 @@ export const NewMember = ({ familyMemberId, familyName }) => {
                 onChange={onChangeHandler}
                 type='password'
               />
-              {Object.keys(pin).length !== 0 && (
-                <Form.Control.Feedback type='invalid' className='text-danger'>
-                  {t("validation")}
+              <Form.Control.Feedback type='invalid' className='text-danger'>
+                {t("validation")}
+              </Form.Control.Feedback>
+              {Object.keys(pinCode).length !== 0 && (
+                <Form.Control.Feedback className='text-danger'>
+                  {pinCode}
                 </Form.Control.Feedback>
               )}
             </Form.Group>

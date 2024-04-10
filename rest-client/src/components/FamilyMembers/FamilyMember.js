@@ -1,24 +1,34 @@
 import { Accordion } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { NewMember } from "./NewMember";
+import { useState } from "react";
 
 export const FamilyMember = ({ count, familyName }) => {
   const countInt = parseInt(count);
-
+  const [active, setActive] = useState(null);
   const { t } = useTranslation();
+
+  const onChangeActiveItem = (key) => {
+    setActive(key);
+  };
   const renderAccordionItems = () => {
     const accordionItems = [];
     for (let i = 0; i < countInt; i++) {
       accordionItems.push(
         <Accordion.Item
-          style={{ backgroundColor: "rgba(255, 255, 255, 0.1)!important" }}
           key={i}
-          eventKey={i.toString()}>
+          style={{ backgroundColor: "rgba(255, 255, 255, 0.1)!important" }}
+          eventKey={active ? i : active}>
           <Accordion.Header>
-            {t("Family Member")} {`${i + 1}`}
+            {familyName} {t("Family Member")} {`${i + 1}`}
           </Accordion.Header>
           <Accordion.Body>
-            <NewMember key={i} familyMemberId={i} familyName={familyName} />
+            <NewMember
+              key={i}
+              familyMemberId={i}
+              familyName={familyName}
+              onChange={onChangeActiveItem}
+            />
           </Accordion.Body>
         </Accordion.Item>
       );
@@ -29,7 +39,10 @@ export const FamilyMember = ({ count, familyName }) => {
   return (
     <Accordion
       style={{ backgroundColor: "rgba(255, 255, 255, 0.1)!important" }}
-      className='m-auto col-xl-6 col-md-6 col-xs-12'>
+      className='m-auto col-xl-6 col-md-6 col-xs-12'
+      alwaysOpen
+      activeKey={active}
+      onSelect={(e) => setActive(e)}>
       {renderAccordionItems()}
     </Accordion>
   );

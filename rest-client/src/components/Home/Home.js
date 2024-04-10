@@ -7,15 +7,15 @@ import { useNavigate } from "react-router-dom";
 export const Home = () => {
   const bgImage = require("../../assets/family.jpg");
   const navigate = useNavigate();
-  const { isAuthenticated, activeUser, onLogoutHandler } =
-    useContext(AuthContext);
+  const { isAuthenticated, activeUser } = useContext(AuthContext);
   /*   useEffect(() => {
     Object.keys(activeUser).length === 0 && onLogoutHandler();
   }, []); */
   useEffect(() => {
-    if (!activeUser) onLogoutHandler();
-    navigate("/family");
-  }, [activeUser]);
+    if (activeUser) {
+      navigate("/family");
+    }
+  }, [activeUser, navigate]);
   return (
     <Container
       fluid

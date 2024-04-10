@@ -1,6 +1,7 @@
 package com.fto.service.impl;
 
 import com.fto.exception.FamilyMemberNameNotUniqueException;
+import com.fto.exception.FamilyNotFoundException;
 import com.fto.exception.UserNotFoundException;
 import com.fto.model.AppUserDetails;
 import com.fto.model.dto.FamilyDto;
@@ -78,6 +79,12 @@ public class FamilyServiceImpl implements FamilyService {
 
     }
 
+    @Override
+    public void deleteFamily(Long id) {
+        FamilyEntity family = familyRepository.findById(id).orElseThrow(() ->new FamilyNotFoundException(id));
+        familyMemberRepository.deleteAll(family.getMembers());
+        familyRepository.deleteById(id);
+    }
 
 
     private FamilyEntity createNewFamily(AppUserDetails user, String familyName) {

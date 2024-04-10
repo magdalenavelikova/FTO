@@ -83,7 +83,7 @@ export const Families = () => {
         }}
         className='pt-2'>
         <Row className='m-auto'>
-          <NewFamily></NewFamily>
+          <NewFamily key='newFamily'></NewFamily>
         </Row>
         <Row className=' m-auto' style={{ width: "90%" }}>
           {familyList.length > 0 &&

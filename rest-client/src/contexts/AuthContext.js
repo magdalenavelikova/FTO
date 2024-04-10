@@ -43,16 +43,23 @@ const logout = () => {
   setToken(null);
 }; */
   useEffect(() => {
-    // eslint-disable-next-line no-lone-blocks
-    {
-      Object.keys(jwt).length !== 0 &&
-        Promise.all([getById(decodeJwt.jti)]).then(([user]) => {
-          setActiveUser(user);
+    if (Object.keys(jwt).length === 0) {
+      onLogoutHandler();
+    } else {
+      Promise.all([getById(decodeJwt.jti)])
+        .then(([user]) => {
+          if (user && user.name) {
+            setActiveUser(user);
+          } else {
+            onLogoutHandler();
+          }
+        })
+        .catch((error) => {
+          onLogoutHandler();
         });
     }
   }, [decodeJwt.jti]);
 
-  
   const onLoginSubmitHandler = async (data) => {
     try {
       setErrors({});

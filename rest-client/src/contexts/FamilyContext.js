@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "./AuthContext";
 import { familyServiceFactory } from "../services/familyServiceFactory";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export const FamilyContext = createContext();
 export const FamilyProvider = ({ children }) => {
@@ -12,53 +13,70 @@ export const FamilyProvider = ({ children }) => {
   const [error, setError] = useState({});
   const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState(false);
-
+  const [successMember, setSuccessMember] = useState(false);
+  const [jwt, setJwt] = useLocalStorage("jwt", {});
+  const [spinner, setSpinner] = useState(false);
   useEffect(() => {
-    try {
-      Promise.all([familyService.getAll(token)]).then(([families]) => {
-        setFamilies(families);
-      });
-    } catch (error) {
-      navigate("/maintenance");
-    }
-  }, []);
-  useEffect(() => {
-    try {
-      Promise.all([familyService.getAll(token)]).then(([families]) => {
-        setFamilies(families);
-      });
-    } catch (error) {
-      navigate("/maintenance");
+    if (Object.keys(jwt).length !== 0) {
+      try {
+        Promise.all([familyService.getAll(token)]).then(([families]) => {
+          setFamilies(families);
+        });
+      } catch (error) {
+        navigate("/maintenance");
+      }
     }
   }, [token]);
 
   const onCreateFamilySubmitHandler = async (data) => {
-    const result = await familyService.create(data, token);
+    setSuccess(false);
+    setErrors({});
     setError({});
+    setSpinner(true);
+    const result = await familyService.create(data, token);
+
     if (result.status === "CONFLICT") {
+      setSpinner(false);
       setErrors(result.fieldErrors);
     } else {
       setFamilies((state) => [...state, result]);
+      setSuccess(true);
+      setSpinner(false);
       setErrors({});
       navigate("/family");
     }
   };
 
   const onCreateMemberSubmitHandler = async (data) => {
-    const result = await familyService.addMember(data, token);
+    setSpinner(true);
     setError({});
-    if (result.description == "Family member name is already exist!") {
-      setErrors({ name: result.description });
-      setSuccess({});
-    }
-    if (result.status == "400" || result.status == "401") {
-      setErrors(result.fieldErrors);
+    setSuccessMember(false);
+    setErrors({});
+    const result = await familyService.addMember(data, token);
+
+    if (result.description === "Family member name is already exist!") {
+      setSpinner(false);
+      setError(result.description);
+      setSuccessMember(false);
     } else {
-      setFamilies((state) => [...state, result]);
-      setErrors({});
-      navigate("/family");
+      if (result.status === "CONFLICT") {
+        setErrors(result.fieldErrors);
+        setSuccessMember(false);
+        setSpinner(false);
+      } else {
+        setFamilies((state) =>
+          state.map((f) => (f.id === result.id ? result : f))
+        );
+        setErrors({});
+        setSpinner(false);
+        setError({});
+        setSuccessMember(true);
+
+        navigate("/family");
+      }
     }
   };
+
   const onFamilyDelete = async (familyId) => {
     try {
       await familyService.remove(familyId);
@@ -70,6 +88,7 @@ export const FamilyProvider = ({ children }) => {
 
   const clearErrors = () => {
     setError({});
+    setErrors({});
   };
 
   const context = {
@@ -77,7 +96,9 @@ export const FamilyProvider = ({ children }) => {
     onCreateMemberSubmitHandler,
     onFamilyDelete,
     clearErrors,
+    successMember,
     success,
+    spinner,
     error,
     errors,
     families,

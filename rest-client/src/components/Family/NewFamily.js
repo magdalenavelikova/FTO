@@ -8,9 +8,10 @@ import { ErrorModal } from "../Modal/ErrorModal";
 
 export const NewFamily = () => {
   const { t } = useTranslation();
-  const { onCreateFamilySubmitHandler, errors } = useFamilyContext();
+  const { onCreateFamilySubmitHandler, errors, success } = useFamilyContext();
   const [showForm, setShowForm] = useState(false);
   const [showMembersForm, setShowMembersForm] = useState(false);
+  const [showNewFamily, setShowNewFamily] = useState(true);
   const [errorModalShow, setErrorModalShow] = useState(false);
   const [count, setCount] = useState();
   const [familyName, setFamilyName] = useState();
@@ -22,7 +23,7 @@ export const NewFamily = () => {
   const onCloseClick = () => {
     setErrorModalShow(null);
     formValues[FamilyFormKeys.Name] = "";
-    setName({});
+    setFamilyName("");
   };
   useEffect(() => {
     setName({});
@@ -42,6 +43,12 @@ export const NewFamily = () => {
     }
   }, [errors]);
 
+  useEffect(() => {
+    // eslint-disable-next-line no-lone-blocks
+    {
+      success && setShowForm(false);
+    }
+  }, [success]);
   const { formValues, onChangeHandler, onSubmit, validated } = useForm(
     {
       [FamilyFormKeys.Name]: "",
@@ -51,6 +58,7 @@ export const NewFamily = () => {
   );
   const ConfirmShowForm = () => {
     setShowForm(true);
+    setShowNewFamily(false);
   };
   const onChangeCountHandler = (event) => {
     const value = event.target.value;
@@ -66,7 +74,7 @@ export const NewFamily = () => {
     <>
       <Container className='m-auto container-fluid pt-5 pb-5 mt-5 border-bottom border-light'>
         <Row className='align-items-center col-md-12 m-auto'>
-          {!showForm && (
+          {showNewFamily && (
             <Col className='col-xl-4 col-md-6 col-xs-6 '>
               <p className='form-title'>
                 {t("nav.Family")}{" "}
@@ -76,6 +84,13 @@ export const NewFamily = () => {
                   style={{ fontSize: "1rem" }}>
                   <i className='fas fa-plus'></i>
                 </span>
+              </p>
+            </Col>
+          )}
+          {!showForm && !showNewFamily && success && (
+            <Col className=' col-xl-12 col-md-12 col-xs-12 '>
+              <p className='form-title '>
+                {t("familyName")}: {familyName}
               </p>
             </Col>
           )}
@@ -101,7 +116,7 @@ export const NewFamily = () => {
                         }}
                         type='text'
                       />
-                      {/* <Form.Control.Feedback
+                      {/*        <Form.Control.Feedback
                         type='invalid'
                         className='text-danger'>
                         {t("validation")}

@@ -1,10 +1,7 @@
 package com.fto.web;
 
 
-import com.fto.exception.FamilyMemberNameNotUniqueException;
-import com.fto.exception.FamilyNameNotUniqueException;
-import com.fto.exception.UserNotFoundException;
-import com.fto.exception.UserNotUniqueException;
+import com.fto.exception.*;
 import com.fto.model.AppException;
 import com.fto.model.dto.FamilyErrorDto;
 import com.fto.model.dto.FamilyMemberErrorDto;
@@ -49,7 +46,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(FamilyNameNotUniqueException.class)
     public ResponseEntity<FamilyErrorDto> onFamilyNameNotUnique(FamilyNameNotUniqueException fnue) {
         FamilyErrorDto familyErrorDto = new FamilyErrorDto(fnue.getFamilyName(), "Family name is already exist!");
-
         return
                 ResponseEntity.status(HttpStatus.CONFLICT).body(familyErrorDto);
     }
@@ -69,6 +65,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         return
                 ResponseEntity.status(HttpStatus.NOT_FOUND).body(userErrorDto);
+    }
+    @ExceptionHandler(FamilyNotFoundException.class)
+    public ResponseEntity<FamilyErrorDto> onFamilyNotFound(UserNotFoundException fnfe) {
+        FamilyErrorDto familyErrorDto = new FamilyErrorDto(Long.toString(fnfe.getId()), "Family not found!");
+
+        return
+                ResponseEntity.status(HttpStatus.NOT_FOUND).body(familyErrorDto);
     }
 
 

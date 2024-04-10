@@ -42,7 +42,12 @@ public class FamilyController {
                 status(HttpStatus.CREATED).
                 body(saved);
     }
-
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')|| hasRole('FAMILY_MODERATOR')")
+    public ResponseEntity<?> deleteFamily(@PathVariable Long id, @AuthenticationPrincipal AppUserDetails user) {
+        familyService.deleteFamily(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
     @GetMapping
     public ResponseEntity<List<FamilyViewDto>> getAll(@AuthenticationPrincipal AppUserDetails user) {
         List<FamilyViewDto> families = familyService.getAll(user);

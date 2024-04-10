@@ -15,4 +15,6 @@ public interface FamilyService {
     List<FamilyViewDto> getAll(AppUserDetails user);
 
     FamilyViewDto addMember(FamilyMemberDto member, AppUserDetails user);
+
+    void deleteFamily(Long id);
 }
