@@ -3,9 +3,11 @@ package com.fto.model.dto;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
-public class FamilyMemberDto {
+public class FamilyMemberEditDto {
     @NotEmpty
-    private String familyName;
+    private String familyId;
+    @NotEmpty
+    private Long id;
     @NotEmpty
     @Size(min = 3, max = 20, message = "Please enter between 3 and 20 characters.")
     private String name;
@@ -18,15 +20,24 @@ public class FamilyMemberDto {
     private String ageCategory;
     private String pictureUrl;
 
-    public FamilyMemberDto() {
+    public FamilyMemberEditDto() {
     }
 
-    public String getFamilyName() {
-        return familyName;
+    public String getFamilyId() {
+        return familyId;
     }
 
-    public FamilyMemberDto setFamilyName(String familyName) {
-        this.familyName = familyName;
+    public FamilyMemberEditDto setFamilyId(String familyId) {
+        this.familyId = familyId;
+        return this;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public FamilyMemberEditDto setId(Long id) {
+        this.id = id;
         return this;
     }
 
@@ -34,7 +45,7 @@ public class FamilyMemberDto {
         return name;
     }
 
-    public FamilyMemberDto setName(String name) {
+    public FamilyMemberEditDto setName(String name) {
         this.name = name;
         return this;
     }
@@ -43,7 +54,7 @@ public class FamilyMemberDto {
         return pinCode;
     }
 
-    public FamilyMemberDto setPinCode(String pinCode) {
+    public FamilyMemberEditDto setPinCode(String pinCode) {
         this.pinCode = pinCode;
         return this;
     }
@@ -52,7 +63,7 @@ public class FamilyMemberDto {
         return role;
     }
 
-    public FamilyMemberDto setRole(String role) {
+    public FamilyMemberEditDto setRole(String role) {
         this.role = role;
         return this;
     }
@@ -61,7 +72,7 @@ public class FamilyMemberDto {
         return ageCategory;
     }
 
-    public FamilyMemberDto setAgeCategory(String ageCategory) {
+    public FamilyMemberEditDto setAgeCategory(String ageCategory) {
         this.ageCategory = ageCategory;
         return this;
     }
@@ -70,7 +81,7 @@ public class FamilyMemberDto {
         return pictureUrl;
     }
 
-    public FamilyMemberDto setPictureUrl(String pictureUrl) {
+    public FamilyMemberEditDto setPictureUrl(String pictureUrl) {
         this.pictureUrl = pictureUrl;
         return this;
     }

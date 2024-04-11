@@ -71,6 +71,7 @@ export const FamilyProvider = ({ children }) => {
         setSpinner(false);
         setError({});
         setSuccessMember(true);
+        setSuccess(true);
 
         navigate("/family");
       }

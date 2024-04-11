@@ -7,6 +7,7 @@ import { DeleteFamily } from "./DeleteFamily";
 import { EditFamily } from "./EditFamily";
 import { Maintenance } from "../Maintenance/Maintenance";
 import { NewFamily } from "./NewFamily";
+import { FamilyEdit } from "./FamilyEdit";
 
 export const Families = () => {
   const { families, onFamilyDelete, success } = useContext(FamilyContext);

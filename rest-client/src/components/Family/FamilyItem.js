@@ -1,7 +1,7 @@
 import { Container, NavDropdown, Row, Col } from "react-bootstrap";
 
 import Card from "react-bootstrap/Card";
-
+import * as formatString from "../../utils/StringUtils";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../../contexts/AuthContext";
@@ -31,7 +31,7 @@ export const FamilyItem = ({ family, onEditClick, onDeleteClick }) => {
         <Row className='col-md-12 m-auto'>
           <Col className='col-10'>
             <Card.Title className='font-size-16 text-align-center mb-1'>
-              {family && family.name}
+              {family && formatString.formatStringToUpperCase(family.name)}
             </Card.Title>
           </Col>
           <Col className='col-2'>
@@ -65,7 +65,8 @@ export const FamilyItem = ({ family, onEditClick, onDeleteClick }) => {
             family.members.map((m) => {
               return (
                 <Card.Text key={m.id + family.id} className='text-muted mb-2'>
-                  {m.name}&nbsp; &nbsp; {m.ageCategory} &nbsp; &nbsp;
+                  {formatString.formatStringToUpperCase(m.name)}
+                  &nbsp; &nbsp; {m.ageCategory} &nbsp; &nbsp;
                   {m.role}
                 </Card.Text>
               );

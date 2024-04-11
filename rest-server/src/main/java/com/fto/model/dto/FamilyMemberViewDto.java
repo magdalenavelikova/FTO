@@ -1,17 +1,11 @@
 package com.fto.model.dto;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
-
 public class FamilyMemberViewDto {
     private Long id;
-
     private String name;
-
     private String pinCode;
-
     private String role;
-       private String ageCategory;
+    private String ageCategory;
     private String pictureUrl;
 
     public FamilyMemberViewDto() {

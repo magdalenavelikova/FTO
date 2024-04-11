@@ -6,9 +6,11 @@ import { useState } from "react";
 export const FamilyMember = ({ count, familyName }) => {
   const countInt = parseInt(count);
   const [active, setActive] = useState(null);
+  const [countMember, setCountMember] = useState(-1);
   const { t } = useTranslation();
 
   const onChangeActiveItem = (key) => {
+    setCountMember(countMember + 1);
     setActive(key);
   };
   const renderAccordionItems = () => {
@@ -37,13 +39,17 @@ export const FamilyMember = ({ count, familyName }) => {
   };
 
   return (
-    <Accordion
-      style={{ backgroundColor: "rgba(255, 255, 255, 0.1)!important" }}
-      className='m-auto col-xl-6 col-md-6 col-xs-12'
-      alwaysOpen
-      activeKey={active}
-      onSelect={(e) => setActive(e)}>
-      {renderAccordionItems()}
-    </Accordion>
+    <>
+      {countInt > countMember && (
+        <Accordion
+          style={{ backgroundColor: "rgba(255, 255, 255, 0.1)!important" }}
+          className='m-auto col-xl-6 col-md-6 col-xs-12'
+          alwaysOpen
+          activeKey={active}
+          onSelect={(e) => setActive(e)}>
+          {renderAccordionItems()}
+        </Accordion>
+      )}
+    </>
   );
 };
