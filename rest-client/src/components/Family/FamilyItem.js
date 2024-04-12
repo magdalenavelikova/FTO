@@ -5,6 +5,7 @@ import * as formatString from "../../utils/StringUtils";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../../contexts/AuthContext";
+import { useEffect, useState } from "react";
 
 export const FamilyItem = ({ family, onEditClick, onDeleteClick }) => {
   const { t } = useTranslation();
@@ -14,6 +15,11 @@ export const FamilyItem = ({ family, onEditClick, onDeleteClick }) => {
     isAuthenticated &&
     (authorities.some((item) => item === "ROLE_ADMIN") ||
       authorities.some((item) => item === "ROLE_FAMILY_MODERATOR"));
+  const [familyMembers, setFamilyMembers] = useState(family.members);
+
+  useEffect(() => {
+    setFamilyMembers(family.members);
+  }, [family.members]);
 
   return (
     <Card key={family.id} className='mx-3 m-2 p-2' style={{ width: "20rem" }}>
@@ -60,9 +66,9 @@ export const FamilyItem = ({ family, onEditClick, onDeleteClick }) => {
           </Card.Title>
         </Container> */}
         <Container className='mt-3 pt-1'>
-          {family.members &&
-            family.members.length > 0 &&
-            family.members.map((m) => {
+          {familyMembers &&
+            familyMembers.length > 0 &&
+            familyMembers.map((m) => {
               return (
                 <Card.Text key={m.id + family.id} className='text-muted mb-2'>
                   {formatString.formatStringToUpperCase(m.name)}

@@ -25,24 +25,23 @@ export const EditFamily = ({ onCloseClick, family }) => {
   const [validated, setValidated] = useState(false);
   const [validationError, setValidationError] = useState();
   const [validationErrorName, setValidationErrorName] = useState();
+  const [validationErrorPin, setValidationErrorPin] = useState();
   useEffect(() => {
     setIsLoading(spinner);
   }, [spinner]);
 
   const handleMemberChange = (index, field, value) => {
-    console.log(field);
-    console.log(index);
     const updatedMembers = [...familyData.members];
     updatedMembers[index][field] = value;
     if (field === "name") {
       handleMemberNameChange(updatedMembers[index][field]);
     }
-
     if (field === "pinCode") {
       handleMemberPinCodeChange(updatedMembers[index][field]);
     }
     setFamilyData({ ...familyData, members: updatedMembers });
   };
+
   const handleMemberNameChange = (value) => {
     if (value.length < 3 || value.length > 20) {
       setValidationErrorName("Please enter between 3 and 20 characters.");
@@ -50,13 +49,15 @@ export const EditFamily = ({ onCloseClick, family }) => {
       setValidationErrorName();
     }
   };
+
   const handleMemberPinCodeChange = (value) => {
     if (value.length !== 4) {
-      setValidationErrorName("Please enter between 3 and 20 characters.");
+      setValidationErrorPin("Please enter 4 characters.");
     } else {
-      setValidationErrorName();
+      setValidationErrorPin();
     }
   };
+
   const handleAddMember = () => {
     setFamilyData({
       ...familyData,
@@ -153,9 +154,6 @@ export const EditFamily = ({ onCloseClick, family }) => {
                   <Form.Control.Feedback type='invalid' className='text-danger'>
                     {validationError}
                   </Form.Control.Feedback>
-                  <Form.Control.Feedback type='invalid' className='text-danger'>
-                    {t("validation")}
-                  </Form.Control.Feedback>
                 </Form.Group>
 
                 {/* Render form for each member */}
@@ -207,12 +205,13 @@ export const EditFamily = ({ onCloseClick, family }) => {
                         onChange={(e) =>
                           handleMemberChange(index, "pinCode", e.target.value)
                         }
+                        isInvalid={!!validationErrorPin}
                         type='text'
                       />
                       <Form.Control.Feedback
                         type='invalid'
                         className='text-danger'>
-                        {t("validation")}
+                        {validationErrorPin}
                       </Form.Control.Feedback>
                     </Form.Group>
 
