@@ -78,6 +78,41 @@ export const FamilyProvider = ({ children }) => {
     }
   };
 
+  const onEditFamilySubmitHandler = async (familyData) => {
+    const id = familyData.id;
+    setSpinner(true);
+    setError({});
+    setSuccessMember(false);
+    setErrors({});
+    const result = await familyService.update(id, familyData);
+
+    if (result.description) {
+      setSpinner(false);
+      setError(result.description);
+      setSuccessMember(false);
+      setSuccess(false);
+    } else {
+      if (result.status === "CONFLICT") {
+        setErrors(result.fieldErrors);
+        setSuccessMember(false);
+        setSpinner(false);
+        setSuccess(false);
+      } else {
+        setFamilies((state) =>
+          state.map((f) => (f.id === result.id ? result : f))
+        );
+
+        setErrors({});
+        setSpinner(false);
+        setError({});
+        setSuccessMember(true);
+        setSuccess(true);
+
+        navigate("/family");
+      }
+    }
+  };
+
   const onFamilyDelete = async (familyId) => {
     try {
       await familyService.remove(familyId);
@@ -95,6 +130,7 @@ export const FamilyProvider = ({ children }) => {
   const context = {
     onCreateFamilySubmitHandler,
     onCreateMemberSubmitHandler,
+    onEditFamilySubmitHandler,
     onFamilyDelete,
     clearErrors,
     successMember,

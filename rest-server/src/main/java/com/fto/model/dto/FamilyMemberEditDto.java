@@ -4,9 +4,8 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 public class FamilyMemberEditDto {
-    @NotEmpty
-    private String familyId;
-    @NotEmpty
+
+
     private Long id;
     @NotEmpty
     @Size(min = 3, max = 20, message = "Please enter between 3 and 20 characters.")
@@ -23,14 +22,7 @@ public class FamilyMemberEditDto {
     public FamilyMemberEditDto() {
     }
 
-    public String getFamilyId() {
-        return familyId;
-    }
 
-    public FamilyMemberEditDto setFamilyId(String familyId) {
-        this.familyId = familyId;
-        return this;
-    }
 
     public Long getId() {
         return id;

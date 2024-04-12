@@ -15,6 +15,6 @@ export const familyServiceFactory = (token) => {
     create: (data) => request.post(`${baseUrl}/add`, data),
     addMember: (data) => request.post(`${baseUrl}/member/add`, data),
     remove: (id) => request.remove(`${baseUrl}/${id}`),
-    update: (id, data) => request.patch(`${baseUrl}/${id}`, data),
+    update: (id, data) => request.patch(`${baseUrl}/${id}`, data, token),
   };
 };

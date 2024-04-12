@@ -2,6 +2,7 @@ package com.fto.service;
 
 import com.fto.model.AppUserDetails;
 import com.fto.model.dto.FamilyDto;
+import com.fto.model.dto.FamilyEditDto;
 import com.fto.model.dto.FamilyMemberDto;
 import com.fto.model.dto.FamilyViewDto;
 
@@ -17,4 +18,6 @@ public interface FamilyService {
     FamilyViewDto addMember(FamilyMemberDto member, AppUserDetails user);
 
     void deleteFamily(Long id);
+
+    FamilyViewDto editFamily(Long id, FamilyEditDto family);
 }

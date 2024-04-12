@@ -2,10 +2,10 @@ import {
   Container,
   Modal,
   Row,
-  Col,
   Button,
   Form,
   Spinner,
+  Alert,
 } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useForm } from "../../hooks/useForm";
@@ -17,26 +17,46 @@ import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 
 export const EditFamily = ({ onCloseClick, family }) => {
   const { t } = useTranslation();
-  const { onEditFamilySubmitHandler, spinner, clearErrors } =
+  const { onEditFamilySubmitHandler, spinner, clearErrors, errors, error } =
     useFamilyContext();
   const [show, setShow] = useState(true);
   const [familyData, setFamilyData] = useState(family);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [validated, setValidated] = useState(false);
+  const [validationError, setValidationError] = useState();
+  const [validationErrorName, setValidationErrorName] = useState();
   useEffect(() => {
     setIsLoading(spinner);
   }, [spinner]);
-  const handleFamilyNameChange = (e) => {
-    setFamilyData({ ...familyData, name: e.target.value });
-  };
-  console.log(familyData);
 
   const handleMemberChange = (index, field, value) => {
+    console.log(field);
+    console.log(index);
     const updatedMembers = [...familyData.members];
     updatedMembers[index][field] = value;
+    if (field === "name") {
+      handleMemberNameChange(updatedMembers[index][field]);
+    }
+
+    if (field === "pinCode") {
+      handleMemberPinCodeChange(updatedMembers[index][field]);
+    }
     setFamilyData({ ...familyData, members: updatedMembers });
   };
-
+  const handleMemberNameChange = (value) => {
+    if (value.length < 3 || value.length > 20) {
+      setValidationErrorName("Please enter between 3 and 20 characters.");
+    } else {
+      setValidationErrorName();
+    }
+  };
+  const handleMemberPinCodeChange = (value) => {
+    if (value.length !== 4) {
+      setValidationErrorName("Please enter between 3 and 20 characters.");
+    } else {
+      setValidationErrorName();
+    }
+  };
   const handleAddMember = () => {
     setFamilyData({
       ...familyData,
@@ -53,10 +73,31 @@ export const EditFamily = ({ onCloseClick, family }) => {
     setFamilyData({ ...familyData, members: updatedMembers });
   };
 
+  const handleFamilyNameChange = (e) => {
+    const { value } = e.target;
+    if (value.length < 3 || value.length > 20) {
+      setValidationError("Please enter between 3 and 20 characters.");
+    } else {
+      setValidationError();
+    }
+    setFamilyData({ ...familyData, name: value });
+  };
+
   const handleSubmit = (e) => {
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setValidated(true);
     e.preventDefault();
-    // Call onSubmit prop with updated family data
-    onSubmit(familyData);
+    if (
+      form.checkValidity() === true &&
+      !validationError &&
+      !validationErrorName
+    ) {
+      onEditFamilySubmitHandler(familyData);
+    }
   };
 
   const handleClose = () => {
@@ -64,8 +105,6 @@ export const EditFamily = ({ onCloseClick, family }) => {
     setShow(false);
     clearErrors();
   };
-
-  const { onSubmit, validated } = useForm(onEditFamilySubmitHandler);
 
   return (
     <>
@@ -82,31 +121,38 @@ export const EditFamily = ({ onCloseClick, family }) => {
         </Modal.Header>
         <Modal.Body>
           <Container className='m-auto container-fluid-md  mt-2'>
+            {(Object.keys(error).length !== 0 ||
+              Object.keys(errors).length !== 0) && (
+              <Row xs={1} md={2} className=' mt-4'>
+                <Alert
+                  className='col-md-6 m-auto  text-center'
+                  variant='danger'>
+                  {error ? error : errors}
+                </Alert>
+              </Row>
+            )}
             <Form
               noValidate
               validated={validated}
               method='POST'
               onSubmit={handleSubmit}
               className='row g-3 m-auto mt-3 mb-3  p-2'>
-              {/*  <p className='mb-3'>{t("nav.Edit")}</p> */}
               <Row className='col-12 m-auto'>
                 {true === false && (
-                  <Form.Control
-                    required
-                    /*  id='familyId' */
-                    value={familyData.id}
-                    type='text'
-                  />
+                  <Form.Control required value={familyData.id} type='text' />
                 )}
                 <Form.Group className='col-5 mb-3' controlId='formBasicName'>
                   <Form.Label> {t("familyName")}</Form.Label>
                   <Form.Control
                     required
-                    /* id='familyName' */
                     value={familyData.name}
                     onChange={handleFamilyNameChange}
                     type='text'
+                    isInvalid={!!validationError}
                   />
+                  <Form.Control.Feedback type='invalid' className='text-danger'>
+                    {validationError}
+                  </Form.Control.Feedback>
                   <Form.Control.Feedback type='invalid' className='text-danger'>
                     {t("validation")}
                   </Form.Control.Feedback>
@@ -140,12 +186,13 @@ export const EditFamily = ({ onCloseClick, family }) => {
                         onChange={(e) =>
                           handleMemberChange(index, "name", e.target.value)
                         }
+                        isInvalid={!!validationErrorName}
                         type='text'
                       />
                       <Form.Control.Feedback
                         type='invalid'
                         className='text-danger'>
-                        {t("validation")}
+                        {validationErrorName}
                       </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group

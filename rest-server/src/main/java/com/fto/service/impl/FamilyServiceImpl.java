@@ -1,10 +1,12 @@
 package com.fto.service.impl;
 
 import com.fto.exception.FamilyMemberNameNotUniqueException;
+import com.fto.exception.FamilyNameNotUniqueException;
 import com.fto.exception.FamilyNotFoundException;
 import com.fto.exception.UserNotFoundException;
 import com.fto.model.AppUserDetails;
 import com.fto.model.dto.FamilyDto;
+import com.fto.model.dto.FamilyEditDto;
 import com.fto.model.dto.FamilyMemberDto;
 import com.fto.model.dto.FamilyViewDto;
 import com.fto.model.entity.FamilyEntity;
@@ -18,6 +20,7 @@ import com.fto.service.FamilyService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -81,9 +84,99 @@ public class FamilyServiceImpl implements FamilyService {
 
     @Override
     public void deleteFamily(Long id) {
-        FamilyEntity family = familyRepository.findById(id).orElseThrow(() ->new FamilyNotFoundException(id));
+        FamilyEntity family = familyRepository.findById(id).orElseThrow(() -> new FamilyNotFoundException(id));
         familyMemberRepository.deleteAll(family.getMembers());
         familyRepository.deleteById(id);
+    }
+
+    @Override
+    public FamilyViewDto editFamily(Long id, FamilyEditDto family) {
+        FamilyEntity existingFamily = familyRepository.findById(id).orElseThrow(() -> new FamilyNotFoundException(id));
+        FamilyEntity editedFamily = familyMapper.familyEditDtoToFamilyEntity(family);
+        compareAndUpdate(existingFamily, editedFamily);
+
+        return familyMapper.familyEntityToFamilyViewDto(existingFamily);
+    }
+
+    private void compareAndUpdate(FamilyEntity existingFamily, FamilyEntity editedFamily) {
+        if (!existingFamily.getName().equals(editedFamily.getName())) {
+            validateFamilyName(existingFamily, editedFamily);
+            existingFamily.setName(editedFamily.getName());
+            existingFamily.setModified(LocalDateTime.now());
+            familyRepository.save(existingFamily);
+        }
+        if (editedFamily.getMembers().isEmpty()) {
+            existingFamily.getMembers().forEach(m -> familyMemberRepository.deleteById(m.getId()));
+            existingFamily.getMembers().clear();
+        } else {
+            compareMembers(existingFamily, existingFamily.getMembers(), editedFamily.getMembers());
+        }
+
+    }
+
+
+    private void compareMembers(FamilyEntity existingFamily, List<FamilyMemberEntity> existingMembers, List<FamilyMemberEntity> editedMembers) {
+        List<FamilyMemberEntity> newMembersList = new ArrayList<>();
+        for (FamilyMemberEntity editedMember : editedMembers) {
+            boolean isNew = true;
+            boolean isEdited = false;
+            for (FamilyMemberEntity existingMember : existingMembers) {
+                if (existingMember.getId().equals(editedMember.getId())) {
+                    if (!existingMember.getName().equals(editedMember.getName())) {
+                        validateMember(editedMember.getName(), existingFamily.getName());
+                        existingMember.setName(editedMember.getName());
+                        isEdited = true;
+                    }
+                    if (!existingMember.getPinCode().equals(editedMember.getPinCode())) {
+                        existingMember.setPinCode(editedMember.getPinCode());
+                        isEdited = true;
+                    }
+                    if (!existingMember.getAgeCategory().equals(editedMember.getAgeCategory())) {
+                        existingMember.setAgeCategory(editedMember.getAgeCategory());
+                        isEdited = true;
+                    }
+                    if (!existingMember.getRole().equals(editedMember.getRole())) {
+                        existingMember.setRole(editedMember.getRole());
+                        isEdited = true;
+                    }
+                    if (isEdited) {
+                        existingMember.setModified(LocalDateTime.now());
+                    }
+                    newMembersList.add(existingMember);
+                    isNew = false;
+                    break;
+                }
+            }
+
+            if (isNew) {
+                validateMember(editedMember.getName(), existingFamily.getName());
+                editedMember.setFamily(existingFamily);
+                editedMember.setCreated(LocalDateTime.now());
+                newMembersList.add(editedMember);
+            }
+
+
+        }
+        if (!newMembersList.isEmpty()) {
+
+            for (FamilyMemberEntity existingMember : existingMembers) {
+                Long deletedId = null;
+                for (FamilyMemberEntity editedMember : newMembersList) {
+                    if (!existingMember.getId().equals(editedMember.getId())) {
+                        deletedId = existingMember.getId();
+                    }else{
+                        deletedId = null;
+                    }
+                }
+                if (deletedId != null) {
+                    familyMemberRepository.deleteById(deletedId);
+                }
+            }
+
+            List<FamilyMemberEntity> saved = familyMemberRepository.saveAll(newMembersList);
+            existingFamily.setModified(LocalDateTime.now());
+            existingFamily.setMembers(saved);
+        }
     }
 
 
@@ -96,9 +189,17 @@ public class FamilyServiceImpl implements FamilyService {
 
         return newFamily;
     }
+
     private void validateMember(String name, String familyName) {
         if (familyMemberRepository.findByNameAndFamily_Name(name, familyName).isPresent()) {
             throw new FamilyMemberNameNotUniqueException(name);
         }
     }
+
+    private void validateFamilyName(FamilyEntity existingFamily, FamilyEntity editedFamily) {
+        if (familyRepository.findByNameAndUserEmail(editedFamily.getName(), existingFamily.getUser().getEmail()).isPresent()) {
+            throw new FamilyNameNotUniqueException(editedFamily.getName());
+        }
+    }
+
 }

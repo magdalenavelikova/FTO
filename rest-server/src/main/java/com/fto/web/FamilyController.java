@@ -2,6 +2,7 @@ package com.fto.web;
 
 import com.fto.model.AppUserDetails;
 import com.fto.model.dto.FamilyDto;
+import com.fto.model.dto.FamilyEditDto;
 import com.fto.model.dto.FamilyMemberDto;
 import com.fto.model.dto.FamilyViewDto;
 import com.fto.service.FamilyService;
@@ -47,6 +48,15 @@ public class FamilyController {
     public ResponseEntity<?> deleteFamily(@PathVariable Long id, @AuthenticationPrincipal AppUserDetails user) {
         familyService.deleteFamily(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PatchMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')or hasRole('FAMILY_MODERATOR')")
+    public ResponseEntity<FamilyViewDto> editLink(@RequestBody @Valid FamilyEditDto family, @PathVariable Long id, @AuthenticationPrincipal AppUserDetails user) {
+        return ResponseEntity.ok()
+                .body(familyService.editFamily(id, family));
+
+
     }
     @GetMapping
     public ResponseEntity<List<FamilyViewDto>> getAll(@AuthenticationPrincipal AppUserDetails user) {

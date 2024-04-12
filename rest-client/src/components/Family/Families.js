@@ -1,13 +1,12 @@
 import { useContext, useEffect, useState, useTransition } from "react";
 import { FamilyContext } from "../../contexts/FamilyContext";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 
 import { FamilyItem } from "./FamilyItem";
 import { DeleteFamily } from "./DeleteFamily";
 import { EditFamily } from "./EditFamily";
 import { Maintenance } from "../Maintenance/Maintenance";
 import { NewFamily } from "./NewFamily";
-import { FamilyEdit } from "./FamilyEdit";
 
 export const Families = () => {
   const { families, onFamilyDelete, success } = useContext(FamilyContext);
@@ -47,7 +46,7 @@ export const Families = () => {
     if (success) {
       setEditFamilyShow(null);
     }
-  }, [families]);
+  }, [families, success]);
   useEffect(() => {
     if (success) {
       setEditFamilyShow(null);
