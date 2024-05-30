@@ -6,7 +6,8 @@
   "nickName": "Име / Псевдоним",
   "pin": "PIN код",
   "select": "Изберете",
-  "familyRole": "Роля",
+  "familyRole": "Отношение към главата на семейството",
+
   "ageCategory": "Възрастова категория",
   "nav.Login": "Вход",
   "nav.Members.AddMember": "Добави член",

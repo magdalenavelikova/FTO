@@ -7,7 +7,7 @@
   "nickName": "Name / Nickname",
   "pin": "PIN Code",
   "select": "Select",
-  "familyRole": "Family Role",
+  "familyRole": "Relation to the head of the family",
   "ageCategory": "Age Category",
   "nav.MembersArea": "Membership",
   "nav.MembersArea.Login": "Login",
@@ -49,7 +49,6 @@
   "forms.Button.RegisterDog": "Register dog and continue ",
   "forms.Button.EditDog": "Save changes",
   "forms.Button.Approve": "Approve",
-
   "registrationNum": "Stud book number",
   "picture": "Upload Picture",
   "sex": "Sex",

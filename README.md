@@ -7,3 +7,5 @@
 <img src="/github_images/home.png" alt="Project image" style="width: 700px"/>
 
 <img src="/github_images/home_mobile.png" alt="Project image" style="width: 200px, hight: 400px"/>
+<img src="/github_images/create_family.png" alt="Project image" style="width: 700px"/>
+<img src="/github_images/edit_family.png" alt="Project image" style="width: 700px"/>
